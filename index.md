@@ -56,7 +56,7 @@ large structured and unstructured datasets, often in a forensically sound way su
 Experience with a broad set of tools to perform these tasks, for example data analysis tools such as SQL, R, Python and 
 Matlab, as well as data visualization tools such as Tableau and various JavaScript libraries. 
 
-**Logica (currently CGI)**, 2011
+`2011` **Logica (currently CGI)**
 * Graduation internship on the topic “automatic rose grading”
 
 ---
