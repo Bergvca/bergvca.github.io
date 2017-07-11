@@ -2,11 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="71834658-26ae-4c00-95e1-04b5b705a2b9" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/_site/index.html" afterPath="$PROJECT_DIR$/_site/index.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/_site/media/cv-screen.css" afterPath="$PROJECT_DIR$/_site/media/cv-screen.css" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/index.md" afterPath="$PROJECT_DIR$/index.md" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/media/cv-print.css" afterPath="$PROJECT_DIR$/media/cv-print.css" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/media/cv-screen.css" afterPath="$PROJECT_DIR$/media/cv-screen.css" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -18,7 +14,7 @@
   <component name="ExecutionTargetManager" SELECTED_TARGET="default_target" />
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="cv-screen.css" pinned="false" current-in-tab="true">
+      <file leaf-file-name="cv-screen.css" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/media/cv-screen.css">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="260">
@@ -28,11 +24,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="cv-print.css" pinned="false" current-in-tab="false">
+      <file leaf-file-name="cv-print.css" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/media/cv-print.css">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="991">
-              <caret line="194" column="0" lean-forward="false" selection-start-line="194" selection-start-column="0" selection-end-line="194" selection-end-column="0" />
+            <state relative-caret-position="200">
+              <caret line="55" column="17" lean-forward="false" selection-start-line="55" selection-start-column="17" selection-end-line="55" selection-end-column="17" />
               <folding />
             </state>
           </provider>
@@ -44,12 +40,12 @@
             <state relative-caret-position="0">
               <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
               <folding>
-                <marker date="1499800233376" expanded="true" signature="4563:4613" ph="..." />
-                <marker date="1499800233376" expanded="true" signature="4839:4921" ph="..." />
-                <marker date="1499800233376" expanded="true" signature="4998:5202" ph="..." />
-                <marker date="1499800233376" expanded="true" signature="5242:5302" ph="..." />
-                <marker date="1499800233376" expanded="true" signature="5352:5451" ph="..." />
-                <marker date="1499800233376" expanded="true" signature="5510:5748" ph="..." />
+                <marker date="1499800504983" expanded="true" signature="4563:4613" ph="..." />
+                <marker date="1499800504983" expanded="true" signature="4839:4921" ph="..." />
+                <marker date="1499800504983" expanded="true" signature="4998:5202" ph="..." />
+                <marker date="1499800504983" expanded="true" signature="5242:5302" ph="..." />
+                <marker date="1499800504983" expanded="true" signature="5352:5451" ph="..." />
+                <marker date="1499800504983" expanded="true" signature="5510:5748" ph="..." />
               </folding>
             </state>
           </provider>
@@ -78,8 +74,8 @@
       <list>
         <option value="$PROJECT_DIR$/_site/index.html" />
         <option value="$PROJECT_DIR$/index.md" />
-        <option value="$PROJECT_DIR$/media/cv-print.css" />
         <option value="$PROJECT_DIR$/media/cv-screen.css" />
+        <option value="$PROJECT_DIR$/media/cv-print.css" />
       </list>
     </option>
   </component>
@@ -217,12 +213,12 @@
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
-            <marker date="1499800233376" expanded="true" signature="4563:4613" ph="..." />
-            <marker date="1499800233376" expanded="true" signature="4839:4921" ph="..." />
-            <marker date="1499800233376" expanded="true" signature="4998:5202" ph="..." />
-            <marker date="1499800233376" expanded="true" signature="5242:5302" ph="..." />
-            <marker date="1499800233376" expanded="true" signature="5352:5451" ph="..." />
-            <marker date="1499800233376" expanded="true" signature="5510:5748" ph="..." />
+            <marker date="1499800504983" expanded="true" signature="4563:4613" ph="..." />
+            <marker date="1499800504983" expanded="true" signature="4839:4921" ph="..." />
+            <marker date="1499800504983" expanded="true" signature="4998:5202" ph="..." />
+            <marker date="1499800504983" expanded="true" signature="5242:5302" ph="..." />
+            <marker date="1499800504983" expanded="true" signature="5352:5451" ph="..." />
+            <marker date="1499800504983" expanded="true" signature="5510:5748" ph="..." />
           </folding>
         </state>
       </provider>
@@ -238,17 +234,17 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/media/cv-print.css">
+    <entry file="file://$PROJECT_DIR$/media/cv-screen.css">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="991">
-          <caret line="194" column="0" lean-forward="false" selection-start-line="194" selection-start-column="0" selection-end-line="194" selection-end-column="0" />
+        <state relative-caret-position="260">
+          <caret line="55" column="17" lean-forward="false" selection-start-line="55" selection-start-column="17" selection-end-line="55" selection-end-column="17" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/media/cv-screen.css">
+    <entry file="file://$PROJECT_DIR$/media/cv-print.css">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="260">
+        <state relative-caret-position="200">
           <caret line="55" column="17" lean-forward="false" selection-start-line="55" selection-start-column="17" selection-end-line="55" selection-end-column="17" />
           <folding />
         </state>
