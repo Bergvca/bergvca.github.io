@@ -36,7 +36,7 @@ MapReduce (Hive, Pig and streaming) &bull; Tableau &bull; Java &bull; R &bull; L
 #### Professional Experience
 **_Rabobank U.A._**
 
-`2016 – now`  **Medior Datascientist**
+`2016 – present`  **Medior Datascientist**
 
 Working on bank-wide data science projects. Developed a production grade automated transaction fraud detection system 
 using machine learning techniques in Python and R. Utilizing a Hadoop cluster using MapReduce and Spark to generate 
