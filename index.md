@@ -61,19 +61,19 @@ Matlab, as well as data visualization tools such as Tableau and various JavaScri
 
 ---
 #### Education
-`2008-2011` **Artificial Intelligence, Computational Intelligence and Self Organization, VU University** 
+`2008 - 2011` **Artificial Intelligence, Computational Intelligence and Self Organization, VU University** 
 *  Degree: Master of Science (graduated _Cum Laude_)
 
 The subject of my Master Thesis was the development and evaluation of an automatic rose grading system. 
 This thesis won the Logica “Working Tomorrow Graduate Award” for best thesis.
 
-* Member of the Board of the student rowing club RSVU ‘Okeanos’, 2009-2010
+`2009 - 2010` **Member of the Board of the student rowing club RSVU ‘Okeanos’**
 
 Commissioner materials of the rowing club. Responsible for the fleet of rowing boats. I received a full time stipend 
 from the university for this position.
 
 
-`2004-2008` **Artificial Intelligence, VU University**
+`2004 - 2008` **Artificial Intelligence, VU University**
 * Degree: Bachelor of Science, BSc
 
 My final bachelor project involved comparing different spam detection methods in email. 
