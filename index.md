@@ -1,6 +1,6 @@
 ---
 layout: cv
-title: Isaac Newtons's CV
+title: Chris van den Berg's CV
 ---
 # Chris van den Berg
 
