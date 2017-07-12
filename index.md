@@ -9,6 +9,7 @@ title: Chris van den Berg's CV
 > ##### Data Scientist
 * 3 Mitchel PL, New York, New York
 * (929) 213 3666 
+* cvandenberg@gmail.com
 <div id="webaddress">
 <img src="/media/img/linkedinlog.png" alt="linkedimg">&nbsp;<a href="https://www.linkedin.com/in/chris-van-den-berg/">linkedin</a> &emsp; <img src="/media/img/github-logo.png" alt="gitimg">&nbsp;<a href="https://github.com/Bergvca">git</a> / <a href="https://gist.github.com/Bergvca">gist</a> &emsp;<img src="/media/img/angellist.png" alt="angelimg">&nbsp;<a href="https://angel.co/chris-a-van-den-berg">angellist</a>
 </div>
