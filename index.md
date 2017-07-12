@@ -7,7 +7,7 @@ title: Chris van den Berg's CV
 ---
 
 > ##### Data Scientist
-* 3 Mitchel PL, New York, New York
+* 3 Mitchell PL, New York, New York
 * (929) 213 3666 
 * cvandenberg@gmail.com
 <div id="webaddress">

@@ -3,9 +3,7 @@
   <component name="ChangeListManager">
     <list default="true" id="71834658-26ae-4c00-95e1-04b5b705a2b9" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/_site/media/cv-screen.css" afterPath="$PROJECT_DIR$/_site/media/cv-screen.css" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/index.md" afterPath="$PROJECT_DIR$/index.md" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/media/cv-screen.css" afterPath="$PROJECT_DIR$/media/cv-screen.css" />
     </list>
     <ignored path="$PROJECT_DIR$/.idea/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -55,8 +53,8 @@
         <entry file="file://$PROJECT_DIR$/index.md">
           <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
             <state split_layout="SPLIT">
-              <first_editor relative-caret-position="220">
-                <caret line="11" column="23" lean-forward="false" selection-start-line="11" selection-start-column="23" selection-end-line="11" selection-end-column="23" />
+              <first_editor relative-caret-position="180">
+                <caret line="9" column="12" lean-forward="false" selection-start-line="9" selection-start-column="12" selection-end-line="9" selection-end-column="12" />
                 <folding />
               </first_editor>
               <second_editor />
@@ -236,16 +234,16 @@
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
-            <marker date="1499870364321" expanded="true" signature="3577:3654" ph="..." />
-            <marker date="1499870364321" expanded="true" signature="3865:3939" ph="..." />
-            <marker date="1499870364321" expanded="true" signature="3944:4130" ph="..." />
-            <marker date="1499870364321" expanded="true" signature="4273:4433" ph="..." />
-            <marker date="1499870364321" expanded="true" signature="4553:4603" ph="..." />
-            <marker date="1499870364321" expanded="true" signature="4829:4911" ph="..." />
-            <marker date="1499870364321" expanded="true" signature="4988:5192" ph="..." />
-            <marker date="1499870364321" expanded="true" signature="5232:5292" ph="..." />
-            <marker date="1499870364321" expanded="true" signature="5342:5441" ph="..." />
-            <marker date="1499870364321" expanded="true" signature="5500:5738" ph="..." />
+            <marker date="1499870551478" expanded="true" signature="3612:3689" ph="..." />
+            <marker date="1499870551478" expanded="true" signature="3900:3974" ph="..." />
+            <marker date="1499870551478" expanded="true" signature="3979:4165" ph="..." />
+            <marker date="1499870551478" expanded="true" signature="4308:4468" ph="..." />
+            <marker date="1499870551478" expanded="true" signature="4588:4638" ph="..." />
+            <marker date="1499870551478" expanded="true" signature="4864:4946" ph="..." />
+            <marker date="1499870551478" expanded="true" signature="5023:5227" ph="..." />
+            <marker date="1499870551478" expanded="true" signature="5267:5327" ph="..." />
+            <marker date="1499870551478" expanded="true" signature="5377:5476" ph="..." />
+            <marker date="1499870551478" expanded="true" signature="5535:5773" ph="..." />
           </folding>
         </state>
       </provider>
@@ -274,16 +272,16 @@
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
-            <marker date="1499870364321" expanded="true" signature="3577:3654" ph="..." />
-            <marker date="1499870364321" expanded="true" signature="3865:3939" ph="..." />
-            <marker date="1499870364321" expanded="true" signature="3944:4130" ph="..." />
-            <marker date="1499870364321" expanded="true" signature="4273:4433" ph="..." />
-            <marker date="1499870364321" expanded="true" signature="4553:4603" ph="..." />
-            <marker date="1499870364321" expanded="true" signature="4829:4911" ph="..." />
-            <marker date="1499870364321" expanded="true" signature="4988:5192" ph="..." />
-            <marker date="1499870364321" expanded="true" signature="5232:5292" ph="..." />
-            <marker date="1499870364321" expanded="true" signature="5342:5441" ph="..." />
-            <marker date="1499870364321" expanded="true" signature="5500:5738" ph="..." />
+            <marker date="1499870551478" expanded="true" signature="3612:3689" ph="..." />
+            <marker date="1499870551478" expanded="true" signature="3900:3974" ph="..." />
+            <marker date="1499870551478" expanded="true" signature="3979:4165" ph="..." />
+            <marker date="1499870551478" expanded="true" signature="4308:4468" ph="..." />
+            <marker date="1499870551478" expanded="true" signature="4588:4638" ph="..." />
+            <marker date="1499870551478" expanded="true" signature="4864:4946" ph="..." />
+            <marker date="1499870551478" expanded="true" signature="5023:5227" ph="..." />
+            <marker date="1499870551478" expanded="true" signature="5267:5327" ph="..." />
+            <marker date="1499870551478" expanded="true" signature="5377:5476" ph="..." />
+            <marker date="1499870551478" expanded="true" signature="5535:5773" ph="..." />
           </folding>
         </state>
       </provider>
@@ -329,8 +327,8 @@
     <entry file="file://$PROJECT_DIR$/index.md">
       <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
         <state split_layout="SPLIT">
-          <first_editor relative-caret-position="220">
-            <caret line="11" column="23" lean-forward="false" selection-start-line="11" selection-start-column="23" selection-end-line="11" selection-end-column="23" />
+          <first_editor relative-caret-position="180">
+            <caret line="9" column="12" lean-forward="false" selection-start-line="9" selection-start-column="12" selection-end-line="9" selection-end-column="12" />
             <folding />
           </first_editor>
           <second_editor />
