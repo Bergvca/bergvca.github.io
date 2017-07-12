@@ -18,7 +18,7 @@ _**All round data scientist with 6+ years of experience in the data analytics an
 
 #### Results
 * &bull; At Rabobank, build a fraud detection system running in production using **Machine Learning**, successfully 
- millions of transactions a day
+ classifying millions of transactions a day
 * &bull; Setup **Customer Journey Monitoring** at Rabobank 
 * &bull; Worked on a wide range of (inter)national **fraud and cybercrime** investigations at PwC
 
