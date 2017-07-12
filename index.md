@@ -17,10 +17,10 @@ title: Chris van den Berg's CV
 _**All round data scientist with 6+ years of experience in the data analytics and AI space**_
 
 #### Results
-* &bull; At Rabobank, build a fraud detection system running in production using **Machine Learning**, successfully finding 40% of the 
-not already found fraudulent transactions, while maintaining a maximum False Positive Rate of 0.002.
+* &bull; At Rabobank, build a fraud detection system running in production using **Machine Learning**, successfully 
+ millions of transactions a day
 * &bull; Setup **Customer Journey Monitoring** at Rabobank 
-* &bull; Worked on various international **fraud and cybercrime** investigations at PwC
+* &bull; Worked on a wide range of (inter)national **fraud and cybercrime** investigations at PwC
 
 #### Expertise
 
@@ -56,7 +56,7 @@ large structured and unstructured datasets, often in a forensically sound way su
 Experience with a broad set of tools to perform these tasks, for example data analysis tools such as SQL, R, Python and 
 Matlab, as well as data visualization tools such as Tableau and various JavaScript libraries. 
 
-`2011` **Logica (currently CGI)**
+`2011` **_Logica (currently CGI)_**
 * Graduation internship on the topic “automatic rose grading”
 
 ---

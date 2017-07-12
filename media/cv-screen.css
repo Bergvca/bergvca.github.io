@@ -182,7 +182,7 @@ a:hover {
 }
 
 em {
-	font-weight: bold;
+	/*font-weight: bold;*/
 	font-style: italic;
 }
 
