@@ -152,6 +152,15 @@ h3 {
 	width: 20%;
 }
 
+h4 {
+    font-size: 1em;
+	line-height: 2em;
+	position: relative;
+	top: 1.7em;
+	text-align: right;
+	width: 20%;
+}
+
 
 h5 {
 	font-size: 2em;
