@@ -1,4 +1,4 @@
-/* http://meyerweb.com/eric/tools/css/reset/ 
+/* http://meyerweb.com/eric/tools/css/reset/
    v2.0 | 20110126
    License: none (public domain)
 */
@@ -12,8 +12,8 @@ b, u, i, center,
 dl, dt, dd, ol, ul, li,
 fieldset, form, label, legend,
 table, caption, tbody, tfoot, thead, tr, th, td,
-article, aside, canvas, details, embed, 
-figure, figcaption, footer, header, hgroup, 
+article, aside, canvas, details, embed,
+figure, figcaption, footer, header, hgroup,
 menu, nav, output, ruby, section, summary,
 time, mark, audio, video {
 	margin: 0;
@@ -24,7 +24,7 @@ time, mark, audio, video {
 	vertical-align: baseline;
 }
 /* HTML5 display-role reset for older browsers */
-article, aside, details, figcaption, figure, 
+article, aside, details, figcaption, figure,
 footer, header, hgroup, menu, nav, section {
 	display: block;
 }
@@ -49,66 +49,55 @@ table {
 
 /* end of reset */
 
-
+/* faux Wikipedia logo font */
+@font-face { font-family: 'Linux Libertine'; font-style: normal; font-weight: 400; src: local('Linux Libertine'),url(//brick.a.ssl.fastly.net/fonts/linuxlibertine/400.woff) format('woff'); } .fa-wikipedia:before { font-family: 'Linux Libertine', 'Times New Roman', Times, serif; font-weight: 400; content: "W"; }
 
 body {
 	font: normal normal 400;
 	font-size: 10pt;
-	line-height: 1.5em;
-	/*also written as...  font: normal normal 400 100%/1.5em;*/
-	font-family: Verdana,sans-serif;
-	margin-top: 1em;
-	margin-left: 1em;
+	line-height: 1.35em;
+	font-family: "Open sans", sans-serif;
+	/*margin-top: 1em;
+	margin-left: 1em;*/
 }
 
 p {
 	position: relative;
-	left: 33%;
-	margin-bottom: 0.7em;
+	left: 28%;
+	/* margin-bottom: 0.2em; */
 	margin-right: 0;
-	width: 65%;
+	width: 70%;
 }
 
 code {
 	font: normal normal;
-	font-size: 60%;
-	/*line-height: 1em;*/
-	font-family: Menlo,monospace,sans-serif;
-	color: #aaa;
+	font-size: 70%;
+	font-family: Menlo, monospace,s ans-serif;
+	color: #444;
 }
 
 p code {
 	position: absolute;
-	left: -15%;
+	left: -10%;
 }
 
 
 ul {
 	position: relative;
-	left: 33%;
+	left: 28%;
 	width: 65%;
-	margin-bottom: 1.5em;
-	margin-top: -0.5em;
+	margin-bottom: 0em;
+	margin-top: 0em;
+
 }
 
-/*uncomment to get dashes in the list*/
-/*li:before {
-	content: "-";
-	position: relative;
-	left: -0.25em;
-}*/
-
 li {
-	/*second line indent*/
-	padding-left: 1.25em;
-	text-indent: -1.25em;
-	/*color: #777;*/
+	/* empty */
 }
 
 li ul {
 	position: relative;
 	left: 0;
-	width: 100%;
 	margin-top: 0.25em;
 }
 
@@ -119,50 +108,51 @@ h1,h2,h3,h4 {
 }
 
 h1 {
+	color: #16174f;
 	text-align: left;
-	font-size: 3em;
+	font-size: 2.2em;
 	line-height: 1em;
 	position: relative;
-	left: 33%;
+	left: 28%;
 }
 
 h1+p {
 	/*subtitle*/
 	font-style: italic;
+	color: #963019;
 	font-size: 110%;
+	line-height: 2em;
+	margin-top: 0.1em;
+	margin-bottom: 0em !important;
 }
 
 h2 {
 	font-size: 1.1em;
-	color: #a00;
-	margin-top: 3em;
+	color: #1D49A0;
+	margin-top: 0em;
 	position: relative;
-	top: 1.4em;
-	text-align: right;
-	width: 20%;
+	top: 0em;
+	text-align: left;
+	width: 18%;
+}
+
+h2+p {
+	margin-top: 0em;
 }
 
 h3 {
+	color: #963019;
 	font-size: 1em;
-	line-height: 2em;
+	line-height: 1em;
 	position: relative;
-	top: 1.7em;
-	text-align: right;
+	top: 0em;
+	text-align: left;
 	width: 20%;
 }
 
-h5 {
-	font-size: 2em;
-	line-height: 2em;
-	position: relative;
-	text-align: left;
-	left: 33%;
-}
-
-
 a {
 	color: inherit;
-	/*text-decoration:none*/
+	text-decoration:none
 }
 
 a:hover {
@@ -170,10 +160,10 @@ a:hover {
 }
 
 #webaddress {
-	margin-top: 1em;
+ 	margin-top: 0.4em;
 	position: relative;
-	left: 33%;
-	color: #aaa;
+	left: 28%;
+	color: #ccc;
 	font-family: Menlo,monospace,sans-serif;
 	font-size: 80%;
 }
@@ -183,7 +173,6 @@ a:hover {
 }
 
 em {
-	/*font-weight: bold;*/
 	font-style: italic;
 }
 
@@ -191,13 +180,32 @@ strong {
 	font-weight: bold;
 }
 
-#address {
+#ghbutton {
 	display: none;
+	visibility: hidden;
 }
 
 
+#projects {
+	 page-break-before: always; 
+}
 
-/*
-@media only screen and (max-width: 480px) {
-	make one column somehow...
-}*/
+.footer {
+    -webkit-column-count: 3; /* Chrome, Safari, Opera */
+    -moz-column-count: 3; /* Firefox */
+    column-count: 3;
+		position: relative;
+		left: 33%;
+		margin-top: 2em;
+		margin-bottom: 3em;
+		margin-right: 0;
+		width: 65%;
+}
+
+@media all {
+	.page-break	{ display: none; }
+}
+
+@media print {
+	.page-break	{ display: block; page-break-before: always; }
+}
