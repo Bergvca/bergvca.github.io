@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>PySpark Dist Explore</title>
+  <meta name="description" content="PySpark Dataframe Distribution Explorer">
+
+  
+  
+  <link rel="stylesheet" href="http://localhost:4000/assets/style.css">
+
+  <link rel="canonical" href="http://localhost:4000/2017/08/01/pyspark-dist-explore.html">
+  <link rel="alternate" type="application/rss+xml" title="van den Blog" href="http://localhost:4000/feed.xml">
+
+  <script async defer src="https://buttons.github.io/buttons.js"></script>
+</head>
+
+
+  <body>
+
+    <header class="border-bottom-thick px-2 clearfix">
+  <div class="left sm-width-full py-1 mt-1 mt-lg-0">
+    <a class="align-middle link-primary text-accent" href="/">
+      van den Blog
+    </a>
+  </div>
+  <div class="right sm-width-full">
+    <ul class="list-reset mt-lg-1 mb-2 mb-lg-1">
+      
+        
+        <li class="inline-block">
+          <a class="align-middle link-primary mr-2 mr-lg-0 ml-lg-2" href="/about/">
+            About
+          </a>
+        </li>
+        
+      
+        
+      
+        
+      
+        
+        <li class="inline-block">
+          <a class="align-middle link-primary mr-2 mr-lg-0 ml-lg-2" href="/resume.html">
+            Resume
+          </a>
+        </li>
+        
+      
+        
+      
+    </ul>
+  </div>
+</header>
+
+
+    <div>
+      <article class="container px-2 mx-auto mb4" itemscope itemtype="http://schema.org/BlogPosting">
+  <h1 class="h0 col-9 sm-width-full py-4 mt-3 inline-block" itemprop="name headline">PySpark Dist Explore</h1>
+  <div class="col-4 sm-width-full mt-1 border-top-thin ">
+    <p class="mb-3 py-2 bold h4"><time datetime="2017-08-01T00:00:00-04:00" itemprop="datePublished">Aug 1, 2017</time></p>
+  </div>
+
+  <div class="prose" itemprop="articleBody">
+      <h1 id="pyspark-dataframe-distribution-explorer">PySpark Dataframe Distribution Explorer</h1>
+
+<p>I found myself using some half baked, quickly written functions to do data exploration in PySpark, 
+every time using a similar but modified version of the same function. So I decided to create a more
+structural solution. The result is: <a href="https://github.com/Bergvca/pyspark_dist_explore">pyspark_dist_explore</a></p>
+
+<h2 id="create-histograms-as-you-would-in-matplotlib">Create histograms as you would in Matplotlib</h2>
+
+<p>Creating an histogram is as easy as:</p>
+
+<div class="language-python highlighter-rouge"><pre class="highlight"><code><span class="n">hist</span><span class="p">(</span><span class="n">ax</span><span class="p">,</span> <span class="n">dataframe</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+</code></pre>
+</div>
+
+<p>Where ax is a matplotlib Axes object. dataframe a PySpark DataFrame, and kwargs all the kwargs you would 
+use in the matplotlib hist function.</p>
+
+<h2 id="other-options">Other options</h2>
+
+<p>I’ve added some other options I found myself using a lot as well:</p>
+
+<ul>
+  <li>
+    <p><strong>distplot(ax, x, **kwargs).</strong> Combines a normalized histogram of each column in x with a density plot of the same column.</p>
+  </li>
+  <li>
+    <p><strong>pandas_histogram(x, bins=None, range=None).</strong> Creates histograms for all columns in x and converts this to a Pandas DataFrame</p>
+  </li>
+</ul>
+
+<p>See for more info:</p>
+
+<p><a href="https://github.com/Bergvca/pyspark_dist_explore">https://github.com/Bergvca/pyspark_dist_explore</a></p>
+
+  </div>
+
+</article>
+
+<div class="container mx-auto px-2 py-2 clearfix">
+  <!-- Use if you want to show previous and next for all posts. -->
+
+
+
+  <div class="col-4 sm-width-full left mr-lg-4 mt-3">
+    <a class="no-underline border-top-thin py-1 block" href="http://localhost:4000/2017/02/01/ikbenwatlater.html">
+      <span class="h5 bold text-accent">Previous</span>
+      <p class="bold h3 link-primary mb-1">ikbenwatlater.nl</p>
+      <p>I’m a bit later dot N L ikbenwatlater.nl (I’m a bit later dot N L) is a site I created...</p>
+    </a>
+  </div>
+  
+  
+  <div class="col-4 sm-width-full left mt-3">
+    <a class="no-underline border-top-thin py-1 block" href="http://localhost:4000/2017/08/29/citi-bike-kde.html">
+      <span class="h5 bold text-accent">Next</span>
+      <p class="bold h3 link-primary mb-1">1 Day of Citi Bike availability </p>
+      <p>After moving to New York from The Netherlands I was relieved to find out that biking in Manhattan is actually...</p>
+    </a>
+  </div>
+
+
+</div>
+
+    </div>
+
+    <div class="border-top-thin clearfix mt-2 mt-lg-4">
+  <div class="container mx-auto px-2">
+    <p class="col-8 sm-width-full left py-2 mb-0">This project is maintained by <a class="text-accent" href="https://github.com/bergvca">bergvca</a></p>
+    <ul class="list-reset right clearfix sm-width-full py-2 mb-2 mb-lg-0">
+      <li class="inline-block mr-1">
+        <a href="https://twitter.com/share" class="twitter-share-button" data-hashtags="van den Blog">Tweet</a> <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
+      </li>
+      <li class="inline-block">
+        <a class="github-button" href="https://github.com/bergvca/" data-icon="octicon-star" data-count-href="bergvca//stargazers" data-count-api="/repos/bergvca/#stargazers_count" data-count-aria-label="# stargazers on GitHub" aria-label="Star bergvca/ on GitHub">Star</a>
+      </li>
+    </ul>
+  </div>
+</div>
+
+
+  </body>
+
+</html>

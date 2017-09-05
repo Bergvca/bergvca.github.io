@@ -1,6 +1,6 @@
 ---
 layout: cv
-title: Chris van den Berg's CV
+title: Resume
 ---
 # Chris van den Berg
 Data Scientist
@@ -103,4 +103,3 @@ My final bachelor project involved comparing different spam detection methods in
 Rowing (crew in 2007 and 2008, winner of the national sprint championship, coach of lightweight 4 in 2009), 
 Running (New York Marathon 2008, Athens Marathon 2010, as well as occasional coaching), mountaineering, 
 cycling, travelling.
-
