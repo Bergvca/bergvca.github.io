@@ -1,6 +1,6 @@
 ---
 layout: post
-cvdbtitle: 1 Day of New York Citi Bikes
+cvdbtitle: "1 Day of New York Citi Bikes"
 layout: page_noheader
 ---
 
