@@ -6,7 +6,7 @@ title: Resume
 Data Scientist
 
 
-3 Mitchell PL, New York, New York
+124 West 60th Street, New York, New York
 <br>(929) 213 3666 
 <br> cvandenberg@gmail.com
 <div id="webaddress">
