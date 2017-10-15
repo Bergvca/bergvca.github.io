@@ -32,5 +32,4 @@ theme_color: black
 # Build settings
 markdown: kramdown
 
-markdown: kramdown
 highlighter: rouge
