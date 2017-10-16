@@ -2,15 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="71834658-26ae-4c00-95e1-04b5b705a2b9" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.sass-cache/5d748788ea6d1e385c105d2b63bff51e3868905a/_components.scssc" afterPath="$PROJECT_DIR$/.sass-cache/5d748788ea6d1e385c105d2b63bff51e3868905a/_components.scssc" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/_config.yml" afterPath="$PROJECT_DIR$/_config.yml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/_sass/_components.scss" afterPath="$PROJECT_DIR$/_sass/_components.scss" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/_site/2017/08/01/pyspark-dist-explore.html" afterPath="$PROJECT_DIR$/_site/2017/08/01/pyspark-dist-explore.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/_site/2017/08/29/citi-bike-kde.html" afterPath="$PROJECT_DIR$/_site/2017/08/29/citi-bike-kde.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/_site/assets/style.css" afterPath="$PROJECT_DIR$/_site/assets/style.css" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/_site/index.html" afterPath="$PROJECT_DIR$/_site/index.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/_site/resume.html" afterPath="$PROJECT_DIR$/_site/resume.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/_posts/2017-10-14-super-fast-string-matching.md" afterPath="$PROJECT_DIR$/_posts/2017-10-14-super-fast-string-matching.md" />
     </list>
     <ignored path="$PROJECT_DIR$/.idea/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -63,8 +56,8 @@
         <entry file="file://$PROJECT_DIR$/_posts/2017-10-14-super-fast-string-matching.md">
           <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
             <state split_layout="SPLIT">
-              <first_editor relative-caret-position="360">
-                <caret line="533" column="170" lean-forward="false" selection-start-line="533" selection-start-column="170" selection-end-line="533" selection-end-column="170" />
+              <first_editor relative-caret-position="262">
+                <caret line="542" column="43" lean-forward="false" selection-start-line="542" selection-start-column="43" selection-end-line="542" selection-end-column="43" />
                 <folding />
               </first_editor>
               <second_editor />
@@ -185,7 +178,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scratches" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -228,6 +220,7 @@
           </PATH>
         </subPane>
       </pane>
+      <pane id="Scratches" />
       <pane id="Scope" />
     </panes>
   </component>
@@ -343,8 +336,8 @@
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Python Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Execute Anonymous" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.3413831" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.15972222" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.35455543" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.16132478" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
@@ -739,8 +732,8 @@
     <entry file="file://$PROJECT_DIR$/_posts/2017-10-14-super-fast-string-matching.md">
       <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
         <state split_layout="SPLIT">
-          <first_editor relative-caret-position="360">
-            <caret line="533" column="170" lean-forward="false" selection-start-line="533" selection-start-column="170" selection-end-line="533" selection-end-column="170" />
+          <first_editor relative-caret-position="262">
+            <caret line="542" column="43" lean-forward="false" selection-start-line="542" selection-start-column="43" selection-end-line="542" selection-end-column="43" />
             <folding />
           </first_editor>
           <second_editor />

@@ -9,9 +9,9 @@ Traditional approaches to string matching such as the [Jaro-Winkler](https://en.
 
 ## Name Matching
 
-A problem that I have witnessed many times, and I think many other people working with databases with me,
- is that of name matching. Databases often have multiple entries that relate to the same entity, for example a person 
- or company, where one entry has a slightly different spelling then the other. This becomes a problem, and 
+A problem that I have witnessed working with databases, and I think many other people with me,
+ is name matching. Databases often have multiple entries that relate to the same entity, for example a person 
+ or company, where one entry has a slightly different spelling then the other. This is a problem, and 
  you want to de-duplicate these. A similar problem occurs when you want to merge or join databases 
  using the names as identifier. 
 
@@ -24,13 +24,23 @@ The following table gives an example:
 |KFC|
 |Mac Donald's|
 
-For the human reader it is obvious that both *Mc Donalds* and *Mac Donald's* are the same company, however for a computer these are completely different making spotting these nearly identical strings difficult. 
+For the human reader it is obvious that both *Mc Donalds* and *Mac Donald's* are the same company.
+ However for a computer these are completely different making spotting these nearly identical strings difficult. 
  
-One way to solve this would be by using a string similarity measures like [Jaro-Winkler](https://en.wikipedia.org/wiki/Jaro%E2%80%93Winkler_distance) or the [Levenshtein](https://en.wikipedia.org/wiki/Levenshtein_distance) distance measure. The obvious problem here is that the amount of calculations necessary grow quadratic. Every entry has to be compared with every other entry in the dataset, in our case this means calculating one of these measures 663.000^2 times. In this post I will explain how to do this can be done faster using TF-IDF, N-Grams, and sparse matrix multiplication. 
+One way to solve this would be using a string similarity measures 
+like [Jaro-Winkler](https://en.wikipedia.org/wiki/Jaro%E2%80%93Winkler_distance) or 
+the [Levenshtein](https://en.wikipedia.org/wiki/Levenshtein_distance) distance measure. 
+The obvious problem here is that the amount of calculations necessary grow quadratic. 
+Every entry has to be compared with every other entry in the dataset, in our case this 
+means calculating one of these measures 663.000^2 times. In this post I will explain how this can be done faster 
+using TF-IDF, N-Grams, and sparse matrix multiplication. 
 
 ## The Dataset
 
-I just grabbed a random dataset with lots of company names from [Kaggle](https://www.kaggle.com/dattapiy/sec-edgar-companies-list). It contains all company names in the SEC EDGAR database. I don't know anything about the data or the amount of duplicates in this dataset (there should be 0), but most likely there will be some very similar names. 
+I just grabbed a random dataset with lots of company names 
+from [Kaggle](https://www.kaggle.com/dattapiy/sec-edgar-companies-list). It contains all company 
+names in the SEC EDGAR database. I don't know anything about the data or the amount of duplicates in this
+ dataset (it should be 0), but most likely there will be some very similar names. 
 
 
 ```python
@@ -110,13 +120,16 @@ names.head()
 
 ## TF-IDF
 
-TF-IDF is a method to generate features from text by multiplying the frequency of a term (usually a word) in a document (the *Term Frequency*, or *TF*) by the importance (the *Inverse Document Frequency* or *IDF*) of the same term in an entire corpus. This last term weights less important words (e.g. the, it, and etc) down, and words that don't occur frequently up. IDF is calculated as: 
+TF-IDF is a method to generate features from text by multiplying the frequency of a term (usually a word) in a 
+document (the *Term Frequency*, or *TF*) by the importance (the *Inverse Document Frequency* or *IDF*) of the same 
+term in an entire corpus. This last term weights less important words (e.g. the, it, and etc) down, and words that 
+don't occur frequently up. IDF is calculated as: 
 
 ```IDF(t) = log_e(Total number of documents / Number of documents with term t in it).```
 
 An example (from [www.tfidf.com/](http://www.tfidf.com/)):
 
-Consider a document containing 100 words wherein the word cat appears 3 times. The term frequency (i.e., tf) for cat is then (3 / 100) = 0.03. Now, assume we have 10 million documents and the word cat appears in one thousand of these. Then, the inverse document frequency (i.e., idf) is calculated as log(10,000,000 / 1,000) = 4. Thus, the Tf-idf weight is the product of these quantities: 0.03 * 4 = 0.12.
+Consider a document containing 100 words in which the word cat appears 3 times. The term frequency (i.e., tf) for cat is then (3 / 100) = 0.03. Now, assume we have 10 million documents and the word cat appears in one thousand of these. Then, the inverse document frequency (i.e., idf) is calculated as log(10,000,000 / 1,000) = 4. Thus, the Tf-idf weight is the product of these quantities: 0.03 * 4 = 0.12.
 
 TF-IDF is very useful in text classification and text clustering. It is used to transform documents into numeric 
 vectors, that can easily be compared. 
@@ -178,7 +191,8 @@ ngrams('!J INC')
 
 
 
-The last term ('INC') has a reletivly low value, which makes sense as this term will appear often in the corpus, thus recieving a lower IDF weight.
+The last term ('INC') has a relatively low value, which makes sense as this term will appear often in the 
+corpus, thus receiving a lower IDF weight.
 
 ## Cosine Similarity 
 
@@ -526,7 +540,7 @@ matches_df.sort_values(['similairity'], ascending=False).head(10)
 ## Conclusion
 
 As we saw by visual inspection the matches created with this method are quite good, as the strings are very similar. 
-The biggest advantage is the speed however. The method described above can be scaled to much larger
+The biggest advantage however, is the speed. The method described above can be scaled to much larger
  datasets by using a distributed computing environment such as Apache Spark. This could be done by broadcasting 
  one of the TF-IDF matrices to all workers, and parallelizing the second (in our case a copy of the TF-IDF matrix) 
  into multiple sub-matrices. Multiplication can then be done (using Numpy or the sparse_dot_topn library) 
