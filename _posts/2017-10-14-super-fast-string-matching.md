@@ -143,7 +143,7 @@ While the terms in TF-IDF are usually words, this is not a necessity. In our cas
 import re
 
 def ngrams(string, n=3):
-    string = re.sub(r'([,-./]|\sBD)',r'', string)
+    string = re.sub(r'[,-./]|\sBD',r'', string)
     ngrams = zip(*[string[i:] for i in range(n)])
     return [''.join(ngram) for ngram in ngrams]
 
