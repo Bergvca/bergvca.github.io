@@ -18,6 +18,7 @@ Data Scientist
 _**All round data scientist with 6+ years of experience in the data analytics and AI space**_
 
 ### Results
+* &bull; At BNP Paribas, set up and integrated the Front Office supervisory tool **ForcePoint UEBA**
 * &bull; At Rabobank, build a fraud detection system running in production using **Machine Learning**, successfully 
  classifying millions of transactions a day
 * &bull; Setup **Customer Journey Monitoring** at Rabobank 
@@ -31,9 +32,15 @@ MapReduce (Hive, Pig and streaming) &bull; Tableau &bull; Java &bull; R &bull; L
 
 ---
 ## Professional Experience
+### BNP Paribas New York
+`2018 - Now`  **Datascientist**
+Setup and maintaining the holistic supervisory and surveillance platform _ForcePoint UEBA_. Designed build
+various part of the BNPP specific tooling, including Entity Resolution, NLP systems, and visualising reports. 
+Working mainly with ElasticSearch, Python and PostgreSQL. 
+
 ### Rabobank U.A.
 
-`2016 – now`  **Medior Datascientist**
+`2016 – 2017`  **Medior Datascientist**
 
 Working on bank-wide data science projects. Developed a production grade automated transaction fraud detection system 
 using machine learning techniques in Python and R. Utilizing a Hadoop cluster using MapReduce and Spark to generate 
