@@ -11,10 +11,10 @@
 
   
   
-  <link rel="stylesheet" href="http://localhost:4000/assets/style.css">
+  <link rel="stylesheet" href="/assets/style.css">
 
-  <link rel="canonical" href="http://localhost:4000/notebooks/nyccitibikeclean.html">
-  <link rel="alternate" type="application/rss+xml" title="van den Blog" href="http://localhost:4000/feed.xml">
+  <link rel="canonical" href="/notebooks/nyccitibikeclean.html">
+  <link rel="alternate" type="application/rss+xml" title="van den Blog" href="/feed.xml">
 
   <script async defer src="https://buttons.github.io/buttons.js"></script>
 
@@ -83,34 +83,33 @@
 
 <h4 id="imports">Imports</h4>
 
-<div class="language-python highlighter-rouge"><pre class="highlight"><code><span class="kn">import</span> <span class="nn">pandas</span> <span class="kn">as</span> <span class="nn">pd</span>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="n">pd</span>
 <span class="kn">import</span> <span class="nn">matplotlib</span>  
-<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="kn">as</span> <span class="nn">plt</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="n">plt</span>
 <span class="kn">import</span> <span class="nn">json</span>
-<span class="kn">import</span> <span class="nn">seaborn</span> <span class="kn">as</span> <span class="nn">sns</span>
+<span class="kn">import</span> <span class="nn">seaborn</span> <span class="k">as</span> <span class="n">sns</span>
 <span class="kn">import</span> <span class="nn">urllib.request</span>
-<span class="kn">import</span> <span class="nn">numpy</span> <span class="kn">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="n">np</span>
 <span class="kn">import</span> <span class="nn">os</span>
 <span class="kn">import</span> <span class="nn">shapefile</span>
-<span class="kn">import</span> <span class="nn">matplotlib.cbook</span> <span class="kn">as</span> <span class="nn">cbook</span>
+<span class="kn">import</span> <span class="nn">matplotlib.cbook</span> <span class="k">as</span> <span class="n">cbook</span>
 
 <span class="kn">from</span> <span class="nn">datetime</span> <span class="kn">import</span> <span class="n">datetime</span>
 <span class="kn">from</span> <span class="nn">time</span> <span class="kn">import</span> <span class="n">sleep</span>
 <span class="kn">from</span> <span class="nn">matplotlib.path</span> <span class="kn">import</span> <span class="n">Path</span>
 <span class="kn">from</span> <span class="nn">mpl_toolkits.basemap</span> <span class="kn">import</span> <span class="n">Basemap</span>
 <span class="kn">from</span> <span class="nn">sklearn.neighbors</span> <span class="kn">import</span> <span class="n">KernelDensity</span>
-<span class="kn">import</span> <span class="nn">matplotlib.dates</span> <span class="kn">as</span> <span class="nn">dates</span>
+<span class="kn">import</span> <span class="nn">matplotlib.dates</span> <span class="k">as</span> <span class="n">dates</span>
 <span class="kn">from</span> <span class="nn">scipy.misc</span> <span class="kn">import</span> <span class="n">imread</span>
 
 <span class="o">%</span><span class="n">matplotlib</span> <span class="n">inline</span>
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <h3 id="get-the-data">Get the data</h3>
 
 <p>First we need to get the data, the data used is loaded from the Citi Bike API every minute and written to a CSV file. This code is not very robust but it gets the job done.</p>
 
-<div class="language-python highlighter-rouge"><pre class="highlight"><code><span class="n">station_link</span> <span class="o">=</span> <span class="s">'https://gbfs.citibikenyc.com/gbfs/en/station_status.json'</span>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">station_link</span> <span class="o">=</span> <span class="s">'https://gbfs.citibikenyc.com/gbfs/en/station_status.json'</span>
 <span class="n">station_info_link</span> <span class="o">=</span> <span class="s">'https://gbfs.citibikenyc.com/gbfs/en/station_information.json'</span>
 <span class="n">station_csv</span> <span class="o">=</span> <span class="s">'station_status.csv'</span>
 
@@ -137,12 +136,11 @@
     <span class="n">station_df</span> <span class="o">=</span> <span class="n">get_station_df</span><span class="p">(</span><span class="n">station_info_df</span><span class="p">,</span> <span class="n">station_link</span><span class="p">)</span>
     <span class="n">station_df</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="n">station_csv</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="s">'a'</span><span class="p">,</span> <span class="n">header</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
     <span class="n">sleep</span><span class="p">(</span><span class="mi">60</span><span class="p">)</span>
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <h3 id="functions-to-create-the-plot">Functions to create the plot</h3>
 
-<div class="language-python highlighter-rouge"><pre class="highlight"><code><span class="c"># The KDE Plot requires a long list of x, y coordinates. This function takes a dataframe with x, y coordinates </span>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># The KDE Plot requires a long list of x, y coordinates. This function takes a dataframe with x, y coordinates </span>
 <span class="c"># and a number of available bikes, and creates a much longer dataframe with one row for each available bike</span>
 
 <span class="k">def</span> <span class="nf">create_expanded_df</span><span class="p">(</span><span class="n">all_status_df</span><span class="p">,</span> <span class="n">timestamp</span><span class="p">):</span>
@@ -158,10 +156,9 @@
             <span class="n">expanded_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">([</span><span class="n">expanded_df</span><span class="p">,</span> <span class="n">expanded_sub_df</span><span class="p">])</span>
     <span class="k">return</span> <span class="n">expanded_df</span>
 
-</code></pre>
-</div>
+</code></pre></div></div>
 
-<div class="language-python highlighter-rouge"><pre class="highlight"><code><span class="c"># This is the main function to create a plot.The function loads in a background image, plots the kde plot</span>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># This is the main function to create a plot.The function loads in a background image, plots the kde plot</span>
 <span class="c"># over it, and plots a scatter plot over that again. </span>
 
 <span class="k">def</span> <span class="nf">create_citi_bike_graph</span><span class="p">(</span><span class="n">expanded_df</span><span class="p">,</span> <span class="n">station_info_df</span><span class="p">,</span> <span class="n">non_expanded_df</span><span class="p">,</span> <span class="n">ts</span><span class="p">,</span> <span class="n">all_status_df</span><span class="p">):</span>
@@ -252,14 +249,13 @@
     <span class="n">plt</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="n">imgfile</span><span class="p">,</span> <span class="n">bbox_inches</span><span class="o">=</span><span class="s">'tight'</span><span class="p">,</span> <span class="n">pad_inches</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
 <span class="c">#     plt.show()</span>
  
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <h3 id="the-code-to-create-the-different-frames">The code to create the different frames</h3>
 
 <p>First we need to create a map of new york. I’ve used the Basemap libary for this, with data from openstreet maps. There are Citi bikes in the state of New York and in the state of New Jersey,  so we need to load the OSM files for this. I’ve used the shapefiles that can be found here: https://download.geofabrik.de/north-america.html. Running this code is slow, thats why I save the image only once and reload the image for every frame.</p>
 
-<div class="language-python highlighter-rouge"><pre class="highlight"><code><span class="c"># Load data created before. I ran in some formatting and memory issues, so didn't load everything</span>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># Load data created before. I ran in some formatting and memory issues, so didn't load everything</span>
 
 <span class="n">station_csv</span> <span class="o">=</span> <span class="s">'station_status_2.csv'</span>
 <span class="n">station_info_link</span> <span class="o">=</span> <span class="s">'https://gbfs.citibikenyc.com/gbfs/en/station_information.json'</span>
@@ -274,10 +270,9 @@
 
 <span class="n">all_status_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">station_csv</span><span class="p">,</span> <span class="n">error_bad_lines</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span>  <span class="n">nrows</span><span class="o">=</span><span class="mi">2500000</span><span class="p">,</span> <span class="n">encoding</span> <span class="o">=</span> <span class="s">"ISO-8859-1"</span><span class="p">)</span>
 <span class="n">all_status_df</span><span class="p">[</span><span class="s">'ts'</span><span class="p">]</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_datetime</span><span class="p">(</span><span class="n">all_status_df</span><span class="o">.</span><span class="n">ts</span><span class="p">)</span>
-</code></pre>
-</div>
+</code></pre></div></div>
 
-<div class="language-python highlighter-rouge"><pre class="highlight"><code><span class="n">imgfile</span> <span class="o">=</span> <span class="s">'./img/mapofnewyork.png'</span>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">imgfile</span> <span class="o">=</span> <span class="s">'./img/mapofnewyork.png'</span>
 <span class="n">shpfile</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">expanduser</span><span class="p">(</span><span class="s">'osm_roads_free_1'</span><span class="p">)</span> <span class="c"># State of NY</span>
 <span class="n">fontcolor</span><span class="o">=</span><span class="s">'#666666'</span>
 <span class="n">jerseyshpfile</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">expanduser</span><span class="p">(</span><span class="s">'./newjersey/osm_roads_free_1'</span><span class="p">)</span> <span class="c"># State of NJ</span>
@@ -309,12 +304,11 @@
 <span class="n">m</span><span class="o">.</span><span class="n">readshapefile</span><span class="p">(</span><span class="n">jerseyshpfile</span><span class="p">,</span> <span class="s">'metro'</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mf">0.15</span><span class="p">)</span>
 
 <span class="n">plt</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="n">imgfile</span><span class="p">,</span> <span class="n">bbox_inches</span><span class="o">=</span><span class="s">'tight'</span><span class="p">,</span> <span class="n">pad_inches</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <h3 id="load-the-csv-file">Load the CSV file</h3>
 
-<div class="language-python highlighter-rouge"><pre class="highlight"><code><span class="c">#filter data for 1 day, and set correct datatypes</span>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c">#filter data for 1 day, and set correct datatypes</span>
 
 <span class="n">all_status_df</span> <span class="o">=</span> <span class="n">all_status_df</span><span class="p">[(</span><span class="n">all_status_df</span><span class="o">.</span><span class="n">ts</span> <span class="o">&gt;=</span> <span class="s">'2017-08-04 00:00:01'</span><span class="p">)</span> 
                              <span class="o">&amp;</span> <span class="p">(</span><span class="n">all_status_df</span><span class="o">.</span><span class="n">ts</span> <span class="o">&lt;=</span> <span class="s">'2017-08-04 23:59:59'</span><span class="p">)</span>
@@ -325,12 +319,11 @@
 <span class="n">all_status_df</span><span class="p">[</span><span class="s">'num_bikes_available'</span><span class="p">]</span> <span class="o">=</span> <span class="n">all_status_df</span><span class="p">[</span><span class="s">'num_bikes_available'</span><span class="p">]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">int32</span><span class="p">)</span>
 
 <span class="n">all_status_df</span> <span class="o">=</span> <span class="n">all_status_df</span><span class="o">.</span><span class="n">set_index</span><span class="p">(</span><span class="s">'station_id'</span><span class="p">)</span>
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <h3 id="create-the-plot">Create the plot</h3>
 
-<div class="language-python highlighter-rouge"><pre class="highlight"><code><span class="c"># Create one plot for every timestamp. As there is one timestamp per minute, this creates a plot for every</span>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># Create one plot for every timestamp. As there is one timestamp per minute, this creates a plot for every</span>
 <span class="c"># minute of the day</span>
 
 <span class="n">unique_ts</span> <span class="o">=</span> <span class="n">all_status_df</span><span class="o">.</span><span class="n">ts</span><span class="o">.</span><span class="n">unique</span><span class="p">()</span>
@@ -342,8 +335,7 @@
     <span class="n">non_expanded_df</span> <span class="o">=</span> <span class="n">all_status_df</span><span class="p">[</span><span class="n">all_status_df</span><span class="o">.</span><span class="n">ts</span> <span class="o">==</span> <span class="n">current_ts</span><span class="p">]</span>
     <span class="n">create_citi_bike_graph</span><span class="p">(</span><span class="n">expanded_df</span><span class="p">,</span> <span class="n">station_info_df</span><span class="p">,</span> <span class="n">non_expanded_df</span><span class="p">,</span> <span class="n">current_ts</span><span class="p">,</span> <span class="n">all_status_df</span><span class="p">)</span>
     <span class="n">plt</span><span class="o">.</span><span class="n">close</span><span class="p">(</span><span class="s">'all'</span><span class="p">)</span>
-</code></pre>
-</div>
+</code></pre></div></div>
 
   </div>
 </article>
