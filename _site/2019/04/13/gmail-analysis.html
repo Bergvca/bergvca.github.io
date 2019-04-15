@@ -1,0 +1,908 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>The rise of Newsletter Spam: A journey through my Gmail inbox</title>
+  <meta name="description" content="">
+
+  
+  
+  <link rel="stylesheet" href="/assets/style.css">
+
+  <link rel="canonical" href="/2019/04/13/gmail-analysis.html">
+  <link rel="alternate" type="application/rss+xml" title="van den Blog" href="/feed.xml">
+
+  <script async defer src="https://buttons.github.io/buttons.js"></script>
+
+  <script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-105892364-1', 'auto');
+  ga('send', 'pageview');
+
+</script>
+</head>
+
+
+  <body>
+
+    <header class="border-bottom-thick px-2 clearfix">
+  <div class="left sm-width-full py-1 mt-1 mt-lg-0">
+    <a class="align-middle link-primary text-accent" href="/">
+      van den Blog
+    </a>
+  </div>
+  <div class="right sm-width-full">
+    <ul class="list-reset mt-lg-1 mb-2 mb-lg-1">
+      
+        
+        <li class="inline-block">
+          <a class="align-middle link-primary mr-2 mr-lg-0 ml-lg-2" href="/about/">
+            About
+          </a>
+        </li>
+        
+      
+        
+      
+        
+      
+        
+        <li class="inline-block">
+          <a class="align-middle link-primary mr-2 mr-lg-0 ml-lg-2" href="/resume.html">
+            Resume
+          </a>
+        </li>
+        
+      
+        
+      
+    </ul>
+  </div>
+</header>
+
+
+    <div>
+      <article class="container px-2 mx-auto mb4" itemscope itemtype="http://schema.org/BlogPosting">
+  <h1 class="h0 col-9 sm-width-full py-4 mt-3 inline-block" itemprop="name headline">The rise of Newsletter Spam: A journey through my Gmail inbox</h1>
+  <div class="col-4 sm-width-full mt-1 border-top-thin ">
+    <p class="mb-3 py-2 bold h4"><time datetime="2019-04-13T00:00:00-04:00" itemprop="datePublished">Apr 13, 2019</time></p>
+  </div>
+
+  <div class="prose" itemprop="articleBody">
+      <p><img src="/media/img/searchdontsort.jpg" style="height: 100%;width: 100%;" /></p>
+
+<p>In the beginning there was spam. Cheap, unpersonalised, mass-send junk mail, easily defeated by simple <a href="https://en.wikipedia.org/wiki/Naive_Bayes_spam_filtering">Bayesian Filters</a>. Over the years spammers improved and an arms race between spammers and spam filters was started. Spam was to me never more then a minor nuisance, and when gmail was launched, and all of google’s might was put into the race spam in your inbox became virtually extinct. Now I don’t even remember what an email for “ch3aP V1agrA” email looks like.</p>
+
+<p>Does this mean my inbox is empty? No. In fact I feel I receive more unwanted mail then ever. With the internet being more and more intertwined in our lives, we drop our email addresses with more and more companies, whom in turn have started sending “promotions”, and “updates” more and more frequent. Even though they usually contain an “unsubscribe” option which I sometimes spend some time clicking though, these mailing lists have become a bigger source of irritation then spam ever was.</p>
+
+<p>This jupyter notebook started out as a way to regularly delete all “Newsletter spam” from my inbox. It turned out however, to be a lot more fun to dig through my gmail inbox, which is what this post is mostly about. I would recommend everyone reading this to clone this notebook and start the same journey on your own inbox. Viewing stats on my inbox is not that interesting, viewing the same stats on your own inbox? A completely different story. It also gives you a sense on how big mailing list spam has become. Although the Gmail API has a delete option - it went against my Data Scientist instinct to actually delete anything.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">import</span> <span class="nn">httplib2</span>
+<span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">import</span> <span class="nn">base64</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="n">np</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="n">pd</span>
+<span class="kn">import</span> <span class="nn">datetime</span>
+<span class="kn">import</span> <span class="nn">logging</span>
+<span class="kn">import</span> <span class="nn">time</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="n">plt</span>
+<span class="kn">import</span> <span class="nn">seaborn</span> <span class="k">as</span> <span class="n">sns</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Union</span><span class="p">,</span> <span class="n">Any</span><span class="p">,</span> <span class="n">List</span><span class="p">,</span> <span class="n">Optional</span><span class="p">,</span> <span class="n">cast</span>
+<span class="kn">from</span> <span class="nn">googleapiclient.discovery</span> <span class="kn">import</span> <span class="n">build</span>
+<span class="kn">from</span> <span class="nn">google_auth_oauthlib.flow</span> <span class="kn">import</span> <span class="n">InstalledAppFlow</span>
+<span class="kn">from</span> <span class="nn">google.auth.transport.requests</span> <span class="kn">import</span> <span class="n">Request</span>
+
+<span class="o">%</span><span class="n">matplotlib</span> <span class="n">inline</span>
+<span class="n">sns</span><span class="o">.</span><span class="nb">set</span><span class="p">()</span>
+</code></pre></div></div>
+
+<h2 id="connect-to-the-gmail-api">Connect to the Gmail API</h2>
+<p>To get our emails, we will use the Gmail API. To to this we first need to enable the Gmail api and download a credential file. In this case I have stored the credential file next to the jupyter notebook. Follow steps 1 and 2 on <a href="https://developers.google.com/gmail/api/quickstart/python#step_1_turn_on_the">this page</a> to enable the API and get the credential file.</p>
+
+<p>First we need to connect to the gmail api with the credentials file and build a “Resource” object:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">SCOPES</span> <span class="o">=</span> <span class="p">[</span><span class="s">'https://www.googleapis.com/auth/gmail.readonly'</span><span class="p">]</span>
+
+<span class="n">flow</span> <span class="o">=</span> <span class="n">InstalledAppFlow</span><span class="o">.</span><span class="n">from_client_secrets_file</span><span class="p">(</span>
+                <span class="s">'credentials.json'</span><span class="p">,</span> <span class="n">SCOPES</span><span class="p">)</span>
+<span class="n">creds</span> <span class="o">=</span> <span class="n">flow</span><span class="o">.</span><span class="n">run_local_server</span><span class="p">()</span>
+<span class="n">service</span> <span class="o">=</span> <span class="n">build</span><span class="p">(</span><span class="s">'gmail'</span><span class="p">,</span> <span class="s">'v1'</span><span class="p">,</span> <span class="n">credentials</span><span class="o">=</span><span class="n">creds</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p>This object called <em>service</em> has a set of functions to connect to the API service. The following lists all the labels in my inbox, and is a good test to see if our connection works</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">labels</span> <span class="o">=</span> <span class="n">service</span><span class="o">.</span><span class="n">users</span><span class="p">()</span><span class="o">.</span><span class="n">labels</span><span class="p">()</span><span class="o">.</span><span class="nb">list</span><span class="p">(</span><span class="n">userId</span><span class="o">=</span><span class="s">'me'</span><span class="p">)</span><span class="o">.</span><span class="n">execute</span><span class="p">()</span>
+<span class="p">[</span><span class="n">label</span><span class="p">[</span><span class="s">'name'</span><span class="p">]</span> <span class="k">for</span> <span class="n">label</span> <span class="ow">in</span> <span class="n">labels</span><span class="p">[</span><span class="s">'labels'</span><span class="p">]]</span>
+</code></pre></div></div>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>['Deleted Items',
+ 'Sent Items',
+ '[Imap]/Sent',
+ 'CATEGORY_PERSONAL',
+ 'Receipts',
+ 'IMPORTANT',
+ 'Travel',
+ 'CHAT',
+ 'SENT',
+ 'INBOX',
+ 'TRASH',
+ 'DRAFT',
+ 'SPAM',
+ 'STARRED',
+ 'UNREAD',
+ 'Personal',
+ 'CATEGORY_FORUMS',
+ 'CATEGORY_SOCIAL',
+ '[Imap]/Trash',
+ 'Work',
+ 'CATEGORY_UPDATES',
+ 'CATEGORY_PROMOTIONS']
+</code></pre></div></div>
+
+<h3 id="loading-our-data">Loading our data</h3>
+
+<p>To download all our emails we can use the <em>get</em> function. This function needs an email id as as input. To get these IDs we need the <em>users.messages.list</em> method. The following function returns a list with all email id’s belonging to a specific <em>label</em> (e.g. Inbox, Spam, Sent, etc):</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="nf">list_messages_with_labels</span><span class="p">(</span><span class="n">service</span><span class="p">,</span> <span class="n">user_id</span><span class="p">,</span> <span class="n">label_ids</span><span class="o">=</span><span class="p">[]):</span>
+    <span class="n">response</span> <span class="o">=</span> <span class="p">(</span><span class="n">service</span>
+                <span class="o">.</span><span class="n">users</span><span class="p">()</span>
+                <span class="o">.</span><span class="n">messages</span><span class="p">()</span>
+                <span class="o">.</span><span class="nb">list</span><span class="p">(</span><span class="n">userId</span><span class="o">=</span><span class="n">user_id</span><span class="p">,</span>
+                      <span class="n">labelIds</span><span class="o">=</span><span class="n">label_ids</span><span class="p">)</span><span class="o">.</span><span class="n">execute</span><span class="p">())</span>
+    <span class="n">messages</span> <span class="o">=</span> <span class="nb">list</span><span class="p">()</span>
+    <span class="k">if</span> <span class="s">'messages'</span> <span class="ow">in</span> <span class="n">response</span><span class="p">:</span>
+        <span class="n">messages</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">response</span><span class="p">[</span><span class="s">'messages'</span><span class="p">])</span>
+        <span class="k">while</span> <span class="s">'nextPageToken'</span> <span class="ow">in</span> <span class="n">response</span><span class="p">:</span>
+            <span class="n">page_token</span> <span class="o">=</span> <span class="n">response</span><span class="p">[</span><span class="s">'nextPageToken'</span><span class="p">]</span>
+            <span class="n">response</span> <span class="o">=</span> <span class="p">(</span><span class="n">service</span>
+                        <span class="o">.</span><span class="n">users</span><span class="p">()</span>
+                        <span class="o">.</span><span class="n">messages</span><span class="p">()</span>
+                        <span class="o">.</span><span class="nb">list</span><span class="p">(</span><span class="n">userId</span><span class="o">=</span><span class="n">user_id</span><span class="p">,</span>
+                              <span class="n">labelIds</span><span class="o">=</span><span class="n">label_ids</span><span class="p">,</span>
+                              <span class="n">pageToken</span><span class="o">=</span><span class="n">page_token</span><span class="p">)</span><span class="o">.</span><span class="n">execute</span><span class="p">())</span>
+            <span class="n">messages</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">response</span><span class="p">[</span><span class="s">'messages'</span><span class="p">])</span>
+    <span class="k">return</span> <span class="n">messages</span>
+</code></pre></div></div>
+
+<p>For the purpose of this post we are just interested in messages in my inbox:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">all_email_ids</span> <span class="o">=</span> <span class="n">list_messages_with_labels</span><span class="p">(</span><span class="n">service</span><span class="p">,</span> <span class="s">'me'</span><span class="p">,</span> <span class="s">'INBOX'</span><span class="p">)</span>
+
+<span class="k">print</span><span class="p">(</span><span class="n">f</span><span class="s">'I have {format(len(all_email_ids), ",d")} messages in my inbox'</span><span class="p">)</span>
+</code></pre></div></div>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>I have 37,950 messages in my inbox
+</code></pre></div></div>
+
+<p>Single events can be retrieved using the <em>get</em> function which returns a dictionary:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">event</span> <span class="o">=</span> <span class="p">(</span><span class="n">service</span><span class="o">.</span><span class="n">users</span><span class="p">()</span>
+         <span class="o">.</span><span class="n">messages</span><span class="p">()</span>
+         <span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">userId</span><span class="o">=</span><span class="s">'me'</span><span class="p">,</span> <span class="nb">id</span><span class="o">=</span><span class="s">'168480e9f32d4068'</span><span class="p">)</span>
+         <span class="o">.</span><span class="n">execute</span><span class="p">())</span>
+</code></pre></div></div>
+
+<p>To parse the output from the mentioned get function, I’ve created a small “<em>Email</em>” class which takes the email dictionary as the input of its constructor, and has the parts of the email we are interested in as its attributes. I’ve added <a href="https://blog.jetbrains.com/pycharm/2015/11/python-3-5-type-hinting-in-pycharm-5/">type hints</a> in case this is ever taken out of this notebook and put into a module.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">class</span> <span class="nc">Email</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">email</span><span class="p">:</span> <span class="nb">dict</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_logger</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="s">'Email'</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="nb">id</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">email</span><span class="p">[</span><span class="s">'id'</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">label_ids</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="n">email</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s">'labelIds'</span><span class="p">,</span> <span class="bp">None</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">date</span><span class="p">:</span> <span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span><span class="o">.</span><span class="n">fromtimestamp</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">email</span><span class="p">[</span><span class="s">'internalDate'</span><span class="p">])</span><span class="o">/</span><span class="mi">1000</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">size</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="n">email</span><span class="p">[</span><span class="s">'sizeEstimate'</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">sender</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="bp">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">to</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="bp">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">subject</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="bp">None</span>
+            
+        <span class="k">if</span> <span class="s">'headers'</span> <span class="ow">in</span> <span class="n">email</span><span class="p">[</span><span class="s">'payload'</span><span class="p">]:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_parse_headers</span><span class="p">(</span><span class="n">email</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_logger</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="n">f</span><span class="s">'Headers not found for email with id: {self.id}'</span><span class="p">)</span>
+            
+        <span class="bp">self</span><span class="o">.</span><span class="n">__dict__</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_as_dict</span><span class="p">()</span>
+    
+    <span class="k">def</span> <span class="nf">_parse_headers</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">email</span><span class="p">:</span> <span class="nb">dict</span><span class="p">):</span>
+        <span class="n">headers</span> <span class="o">=</span> <span class="n">email</span><span class="p">[</span><span class="s">'payload'</span><span class="p">][</span><span class="s">'headers'</span><span class="p">]</span>
+        <span class="k">for</span> <span class="n">header</span> <span class="ow">in</span> <span class="n">headers</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">header</span><span class="p">[</span><span class="s">'name'</span><span class="p">]</span> <span class="o">==</span> <span class="s">'From'</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">sender</span> <span class="o">=</span> <span class="n">header</span><span class="p">[</span><span class="s">'value'</span><span class="p">]</span>
+            <span class="k">elif</span> <span class="n">header</span><span class="p">[</span><span class="s">'name'</span><span class="p">]</span> <span class="o">==</span> <span class="s">'To'</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">to</span> <span class="o">=</span> <span class="n">header</span><span class="p">[</span><span class="s">'value'</span><span class="p">]</span>
+            <span class="k">elif</span> <span class="n">header</span><span class="p">[</span><span class="s">'name'</span><span class="p">]</span> <span class="o">==</span> <span class="s">'Subject'</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">subject</span> <span class="o">=</span> <span class="n">header</span><span class="p">[</span><span class="s">'value'</span><span class="p">]</span>
+                
+    <span class="k">def</span> <span class="nf">_as_dict</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="p">{</span><span class="n">k</span><span class="p">:</span> <span class="n">v</span> <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">__dict__</span><span class="o">.</span><span class="n">items</span><span class="p">()</span> <span class="k">if</span> <span class="ow">not</span> <span class="n">k</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s">'_'</span><span class="p">)}</span>
+                
+        
+</code></pre></div></div>
+
+<p>Now we can fetch a list of emails and convert this to a DataFrame. As we don’t want to send and get a new http request for each email we will use the <a href="https://developers.google.com/api-client-library/python/guide/batch">BatchHttpRequest</a> object. This object allows us to bundle multiple http requests and a <em>callback</em> function that handles the result of the individual requests. The gmail API is rate limited at 250 requests per second - so we will have to create batches of 250 or less requests, and wait one second after each batch request is executed.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">BATCH_SIZE</span> <span class="o">=</span> <span class="mi">200</span> <span class="c"># Maximum number of requests per second</span>
+<span class="n">emails</span> <span class="o">=</span> <span class="nb">list</span><span class="p">()</span> <span class="c"># List of Dictionaries with the emails </span>
+
+<span class="k">def</span> <span class="nf">add_emails</span><span class="p">(</span><span class="n">request_id</span><span class="p">,</span> <span class="n">response</span><span class="p">,</span> <span class="n">exception</span><span class="p">):</span>
+    <span class="s">"""Callback function that handles the result of each request"""</span>
+    <span class="k">if</span> <span class="n">exception</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
+    <span class="c"># Do something with the exception</span>
+        <span class="k">raise</span> <span class="nb">ValueError</span><span class="p">(</span><span class="n">exception</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+    <span class="c"># Convert the email to a dictionary using our Email class</span>
+        <span class="n">emails</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="nb">vars</span><span class="p">(</span><span class="n">Email</span><span class="p">(</span><span class="n">response</span><span class="p">)))</span>
+
+<span class="n">batch</span> <span class="o">=</span> <span class="n">service</span><span class="o">.</span><span class="n">new_batch_http_request</span><span class="p">()</span>
+<span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">msg_id</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">all_email_ids</span><span class="p">):</span>
+    <span class="n">batch</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">service</span>
+               <span class="o">.</span><span class="n">users</span><span class="p">()</span>
+               <span class="o">.</span><span class="n">messages</span><span class="p">()</span>
+               <span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">userId</span> <span class="o">=</span> <span class="s">'me'</span><span class="p">,</span> <span class="nb">id</span> <span class="o">=</span> <span class="n">msg_id</span><span class="p">[</span><span class="s">'id'</span><span class="p">])</span>
+               <span class="p">,</span> <span class="n">callback</span><span class="o">=</span><span class="n">add_emails</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">i</span> <span class="o">%</span> <span class="n">BATCH_SIZE</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="n">batch</span><span class="o">.</span><span class="n">execute</span><span class="p">()</span>
+        <span class="n">batch</span> <span class="o">=</span> <span class="n">service</span><span class="o">.</span><span class="n">new_batch_http_request</span><span class="p">()</span>
+        <span class="k">print</span><span class="p">(</span><span class="n">f</span><span class="s">'{i} out of {len(all_email_ids)} done'</span><span class="p">)</span>
+        <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+
+<span class="c"># Create a DataFrame from our list of emails</span>
+<span class="n">all_emails</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">emails</span><span class="p">)</span>
+</code></pre></div></div>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>37900 out of 37950 done
+</code></pre></div></div>
+
+<h3 id="exploring-our-data">Exploring our data</h3>
+<p>Let’s have a look at our newly created DataFrame:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">all_emails</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</code></pre></div></div>
+
+<div>
+<style scoped="">
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>date</th>
+      <th>id</th>
+      <th>label_ids</th>
+      <th>sender</th>
+      <th>size</th>
+      <th>subject</th>
+      <th>to</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>2019-02-09 19:01:42</td>
+      <td>168d4b5b42e4c21d</td>
+      <td>[IMPORTANT, CATEGORY_SOCIAL, INBOX]</td>
+      <td>Quora Digest &lt;digest-noreply@quora.com&gt;</td>
+      <td>120030</td>
+      <td>Why do so many software engineers/ programmers...</td>
+      <td>cvandenberg@gmail.com</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>2019-02-09 17:15:08</td>
+      <td>168d45420f87bb57</td>
+      <td>[UNREAD, CATEGORY_UPDATES, INBOX]</td>
+      <td>Glassdoor Jobs &lt;noreply@glassdoor.com&gt;</td>
+      <td>35059</td>
+      <td>An opportunity for you at Trupanion was just p...</td>
+      <td>cvandenberg@gmail.com</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>2019-02-09 16:28:03</td>
+      <td>168d42909cef9597</td>
+      <td>[UNREAD, CATEGORY_PERSONAL, INBOX]</td>
+      <td>ns-vertraging@ns-vertragingsmail.com</td>
+      <td>5494</td>
+      <td>LET OP: Je trein is geannuleerd</td>
+      <td>Cvandenberg@gmail.com</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>2019-02-09 14:59:03</td>
+      <td>168d3d788dcfc077</td>
+      <td>[UNREAD, CATEGORY_PERSONAL, INBOX]</td>
+      <td>ns-vertraging@ns-vertragingsmail.com</td>
+      <td>5493</td>
+      <td>LET OP: Je trein is geannuleerd</td>
+      <td>cvandenberg@gmail.com</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>2019-02-09 14:45:03</td>
+      <td>168d3caba6a335bd</td>
+      <td>[UNREAD, CATEGORY_UPDATES, INBOX]</td>
+      <td>ns-vertraging@ns-vertragingsmail.com</td>
+      <td>5486</td>
+      <td>LET OP: Je trein is geannuleerd</td>
+      <td>Cvandenberg@gmail.com</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+<p>We can now use this DataFrame to dig through our emails. For example calculate the total size of our inbox in gigabytes:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">all_emails</span><span class="p">[</span><span class="s">'size'</span><span class="p">]</span><span class="o">.</span><span class="nb">sum</span><span class="p">()</span> <span class="o">/</span> <span class="mi">1024</span> <span class="o">**</span> <span class="mi">3</span>
+</code></pre></div></div>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>4.190045651048422
+</code></pre></div></div>
+
+<p>Or find out the biggest email in our inbox - in this case a 34MB email with pictures from a Rafting trip in 2011. Fun times!</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">all_emails</span><span class="p">[</span><span class="n">all_emails</span><span class="p">[</span><span class="s">'size'</span><span class="p">]</span> <span class="o">==</span> <span class="nb">max</span><span class="p">(</span><span class="n">all_emails</span><span class="p">[</span><span class="s">'size'</span><span class="p">])]</span>
+</code></pre></div></div>
+
+<div>
+<style scoped="">
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>date</th>
+      <th>id</th>
+      <th>label_ids</th>
+      <th>sender</th>
+      <th>size</th>
+      <th>subject</th>
+      <th>to</th>
+      <th>sender_norm</th>
+      <th>anon</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>22077</th>
+      <td>2011-10-22 19:36:15</td>
+      <td>1332dff678ef6b13</td>
+      <td>[CATEGORY_PERSONAL, INBOX]</td>
+      <td>Some guy</td>
+      <td>35686503</td>
+      <td>Rangitata Rafts Pics</td>
+      <td>Me</td>
+      <td>Some guy</td>
+      <td>Some guy</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+<p>This is an obvious outlier - most emails are much smaller:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># Add a column with sizes in Mb - which is easier to read</span>
+<span class="n">all_emails</span><span class="p">[</span><span class="s">'size_mb'</span><span class="p">]</span> <span class="o">=</span> <span class="n">all_emails</span><span class="p">[</span><span class="s">'size'</span><span class="p">]</span> <span class="o">/</span> <span class="mi">1024</span> <span class="o">**</span> <span class="mi">2</span>
+
+<span class="n">_</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">all_emails</span><span class="p">[</span><span class="s">'size_mb'</span><span class="p">],</span> 
+             <span class="n">bins</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mf">0.05</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">,</span> <span class="mf">0.2</span><span class="p">,</span> <span class="mf">0.3</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.8</span><span class="p">,</span> <span class="mi">1</span><span class="p">])</span>
+<span class="k">print</span><span class="p">(</span><span class="n">f</span><span class="s">'The median size is only {(all_emails["size"].median() / 1024):.2f} kb'</span><span class="p">)</span>
+</code></pre></div></div>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>The median size is only 15.03 kb
+</code></pre></div></div>
+
+<p><img src="files/test%20notebook_25_1.png" alt="png" /></p>
+
+<p>Now lets see who our most frequent senders are. First we want to clean up the adresses a bit and strip out only the actuall email adress:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">all_emails</span><span class="p">[</span><span class="s">'sender_norm'</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">all_emails</span><span class="p">[</span><span class="s">'sender'</span><span class="p">]</span>
+                           <span class="o">.</span><span class="nb">str</span><span class="o">.</span><span class="n">extract</span><span class="p">(</span><span class="s">'&lt;?(</span><span class="err">\</span><span class="s">S+@</span><span class="err">\</span><span class="s">S+.</span><span class="err">\</span><span class="s">w+)&gt;?'</span><span class="p">,</span> <span class="n">expand</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
+                           <span class="o">.</span><span class="nb">str</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span>
+                           <span class="o">.</span><span class="nb">str</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s">'"'</span><span class="p">,</span> <span class="s">''</span><span class="p">)</span>
+                           <span class="o">.</span><span class="nb">str</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s">'&lt;'</span><span class="p">,</span> <span class="s">''</span><span class="p">)</span>
+                           <span class="o">.</span><span class="nb">str</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s">'['</span><span class="p">,</span> <span class="s">''</span><span class="p">))</span>
+</code></pre></div></div>
+
+<p>To see who the top senders are we can group by this new column and calculate the number of emails recieved from this person (<em>count</em>) and the total size of all emails send by this person (<em>sum</em> of size_mb)</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+<span class="n">top_senders</span> <span class="o">=</span> <span class="p">(</span><span class="n">all_emails</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s">'sender_norm'</span><span class="p">)</span>
+           <span class="o">.</span><span class="n">agg</span><span class="p">({</span><span class="s">'sender_norm'</span><span class="p">:</span> <span class="p">[</span><span class="s">'count'</span><span class="p">],</span> <span class="s">'size_mb'</span> <span class="p">:</span> <span class="p">[</span><span class="s">'sum'</span><span class="p">]})</span>
+           <span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="n">by</span><span class="o">=</span><span class="p">[(</span><span class="s">'sender_norm'</span><span class="p">,</span> <span class="s">'count'</span><span class="p">)],</span> <span class="n">ascending</span><span class="o">=</span><span class="bp">False</span><span class="p">))</span>
+
+<span class="c"># Check the 10 senders that send most emails</span>
+<span class="n">top_senders</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
+</code></pre></div></div>
+
+<div>
+<style scoped="">
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead tr th {
+        text-align: left;
+    }
+
+    .dataframe thead tr:last-of-type th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr>
+      <th></th>
+      <th>sender_norm</th>
+      <th>size_mb</th>
+    </tr>
+    <tr>
+      <th></th>
+      <th>count</th>
+      <th>sum</th>
+    </tr>
+    <tr>
+      <th>sender_norm</th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>ns-vertraging@ns-vertragingsmail.com</th>
+      <td>1374</td>
+      <td>6.865120</td>
+    </tr>
+    <tr>
+      <th>digest-noreply@quora.com</th>
+      <td>960</td>
+      <td>95.993297</td>
+    </tr>
+    <tr>
+      <th>info@meetup.com</th>
+      <td>730</td>
+      <td>41.120080</td>
+    </tr>
+    <tr>
+      <th>Family</th>
+      <td>697</td>
+      <td>185.316703</td>
+    </tr>
+    <tr>
+      <th>notification+orpefvl1@facebookmail.com</th>
+      <td>695</td>
+      <td>6.315460</td>
+    </tr>
+    <tr>
+      <th>Friend 1</th>
+      <td>657</td>
+      <td>48.461307</td>
+    </tr>
+    <tr>
+      <th>Friend 2</th>
+      <td>650</td>
+      <td>88.133715</td>
+    </tr>
+    <tr>
+      <th>Wife</th>
+      <td>628</td>
+      <td>231.473106</td>
+    </tr>
+    <tr>
+      <th>Newsletter 1</th>
+      <td>586</td>
+      <td>20.304824</td>
+    </tr>
+    <tr>
+      <th>Newsletter 2</th>
+      <td>517</td>
+      <td>213.101904</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+<p>I’ve anonymised most of the senders for obvious reasons. I’m glad too see there are some friends and family members in the top 10, and it’s not only newsletters. My number 1 spammer: <em>ns-vertraging@ns-vertragingsmail.com</em> is an automated mail I get when the train I used to take gets delayed, see <a href="https://bergvca.github.io/2017/02/01/ikbenwatlater.html">this previous blog post</a>. As you can see, this train is delayed a lot… It’s also good to know that the newsletters are generally much smaller then the emails from friends. If we sort by size we see mostly natural persons in the top 10, me sending myself emails with large attachments being number 1.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">top_senders</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="n">by</span><span class="o">=</span><span class="p">[(</span><span class="s">'size_mb'</span><span class="p">,</span> <span class="s">'sum'</span><span class="p">)],</span> <span class="n">ascending</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
+</code></pre></div></div>
+
+<div>
+<style scoped="">
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead tr th {
+        text-align: left;
+    }
+
+    .dataframe thead tr:last-of-type th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr>
+      <th></th>
+      <th>sender_norm</th>
+      <th>size_mb</th>
+    </tr>
+    <tr>
+      <th></th>
+      <th>count</th>
+      <th>sum</th>
+    </tr>
+    <tr>
+      <th>sender_norm</th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>cvandenberg@gmail.com</th>
+      <td>378</td>
+      <td>300.656649</td>
+    </tr>
+    <tr>
+      <th>Wife</th>
+      <td>628</td>
+      <td>231.473106</td>
+    </tr>
+    <tr>
+      <th>Newsletter 2</th>
+      <td>517</td>
+      <td>213.101904</td>
+    </tr>
+    <tr>
+      <th>Family</th>
+      <td>697</td>
+      <td>185.316703</td>
+    </tr>
+    <tr>
+      <th>Friend 3</th>
+      <td>196</td>
+      <td>122.931810</td>
+    </tr>
+    <tr>
+      <th>Sports club</th>
+      <td>231</td>
+      <td>97.326284</td>
+    </tr>
+    <tr>
+      <th>digest-noreply@quora.com</th>
+      <td>960</td>
+      <td>95.993297</td>
+    </tr>
+    <tr>
+      <th>Friend 4</th>
+      <td>43</td>
+      <td>94.249075</td>
+    </tr>
+    <tr>
+      <th>Friend 2</th>
+      <td>650</td>
+      <td>88.133715</td>
+    </tr>
+    <tr>
+      <th>Friend 5</th>
+      <td>57</td>
+      <td>81.848216</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+<h2 id="emails-over-time">Emails over time</h2>
+<p>Lets calculate the amount of emails received per week. First we need to change the index of the DataFrame to the date column:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">all_emails</span> <span class="o">=</span> <span class="n">all_emails</span><span class="o">.</span><span class="n">set_index</span><span class="p">(</span><span class="s">'date'</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p>Now we need to <a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.resample.html">resample</a> the DataFrame in weekly periods, and count the number of emails per week. To get a nice and smooth line we will use a rolling average of these counts. To calculate the means we use a gaussian kernel (the function that is used to take the average of the neighboring points).</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">weekly_counts</span> <span class="o">=</span> <span class="n">all_emails</span><span class="o">.</span><span class="n">resample</span><span class="p">(</span><span class="s">'W'</span><span class="p">)</span><span class="o">.</span><span class="n">count</span><span class="p">()</span> <span class="c"># Get a count per week</span>
+<span class="c"># filter data from before gmail existed </span>
+<span class="n">weekly_counts</span> <span class="o">=</span> <span class="n">weekly_counts</span><span class="p">[</span><span class="n">weekly_counts</span><span class="o">.</span><span class="n">index</span> <span class="o">&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">datetime64</span><span class="p">(</span><span class="s">'2004-04-01'</span><span class="p">)]</span> 
+<span class="c"># Calculate the moving average</span>
+<span class="n">moving_av</span> <span class="o">=</span> <span class="n">weekly_counts</span><span class="o">.</span><span class="n">rolling</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="n">center</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">win_type</span><span class="o">=</span><span class="s">'gaussian'</span><span class="p">)</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">std</span><span class="o">=</span><span class="mi">3</span><span class="p">)[</span><span class="s">'id'</span><span class="p">]</span>
+</code></pre></div></div>
+
+<p>Now plot this moving average. I’m using the Object Oriented interface of Matplotlib which gives you much more flexibility and and ease of use in the long run.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">20</span><span class="p">,</span><span class="mi">8</span><span class="p">))</span>
+<span class="n">ax</span><span class="o">.</span><span class="nb">set</span><span class="p">(</span><span class="n">xlabel</span><span class="o">=</span><span class="s">'Date'</span><span class="p">,</span> <span class="n">ylabel</span><span class="o">=</span><span class="s">'Weekly Count'</span><span class="p">,</span>
+       <span class="n">title</span><span class="o">=</span><span class="s">'Emails recieved per Week'</span><span class="p">)</span>
+<span class="n">_</span> <span class="o">=</span> <span class="n">moving_av</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">)</span> 
+</code></pre></div></div>
+
+<p><img src="files/test%20notebook_37_0.png" alt="png" /></p>
+
+<p>Very cool! For the reader this might be “just” a graph, which is why I recommend to clone this notebook and run it on your own data. For me I see a clear period when I was in university, a period when I was not in university and using another email address, a period when I was basically using gmail as a substitute for what is now WhatsApp, and the rise of <em>newsletter</em> spam.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># Filter only emails from the 15 frequent senders:</span>
+<span class="n">top_sender_over_time</span> <span class="o">=</span> <span class="n">all_emails</span><span class="p">[</span><span class="n">all_emails</span><span class="p">[</span><span class="s">'sender_norm'</span><span class="p">]</span><span class="o">.</span><span class="n">isin</span><span class="p">(</span><span class="n">top_senders</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">15</span><span class="p">)</span><span class="o">.</span><span class="n">index</span><span class="p">)]</span>
+
+<span class="c"># Group by sender and month and count</span>
+<span class="n">top_sender_over_time</span> <span class="o">=</span> <span class="p">(</span><span class="n">top_sender_over_time</span>
+                        <span class="o">.</span><span class="n">groupby</span><span class="p">([</span><span class="s">'sender_norm'</span><span class="p">,</span> <span class="n">pd</span><span class="o">.</span><span class="n">Grouper</span><span class="p">(</span><span class="n">level</span><span class="o">=</span><span class="s">'date'</span><span class="p">,</span> <span class="n">freq</span><span class="o">=</span><span class="s">'M'</span><span class="p">)])</span>
+                        <span class="o">.</span><span class="n">agg</span><span class="p">({</span><span class="s">'sender_norm'</span><span class="p">:</span> <span class="p">[</span><span class="s">'count'</span><span class="p">]}))</span>
+
+<span class="c"># "Unstack" the sender part of the index, so each sender gets his own column</span>
+<span class="n">top_sender_over_time</span> <span class="o">=</span> <span class="n">top_sender_over_time</span><span class="o">.</span><span class="n">unstack</span><span class="p">(</span><span class="n">level</span><span class="o">=</span><span class="s">'sender_norm'</span><span class="p">)</span>
+
+<span class="c"># Resample to make sure all periods have a value, even when no emails were recieved in that period</span>
+<span class="n">top_sender_over_time</span> <span class="o">=</span> <span class="n">top_sender_over_time</span><span class="o">.</span><span class="n">resample</span><span class="p">(</span><span class="s">'M'</span><span class="p">)</span>
+
+<span class="c"># Calculate the moving average the same way we did before    </span>
+<span class="n">top_sender_over_time</span> <span class="o">=</span> <span class="p">(</span><span class="n">top_sender_over_time</span><span class="o">.</span><span class="nb">sum</span><span class="p">()</span>
+               <span class="o">.</span><span class="n">rolling</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="n">center</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">win_type</span><span class="o">=</span><span class="s">'gaussian'</span><span class="p">)</span>
+               <span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">std</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
+                       <span class="p">)</span>
+</code></pre></div></div>
+
+<p>Our columns now are a MultiIndex with three levels, the first two having just a single value each (‘sender_norm’, and ‘count’). We can remove these to get a cleaner looking plot:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">top_sender_over_time</span> <span class="o">=</span> <span class="n">top_sender_over_time</span><span class="p">[</span><span class="s">'sender_norm'</span><span class="p">][</span><span class="s">'count'</span><span class="p">]</span>
+</code></pre></div></div>
+
+<p>Lets plot it!</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">20</span><span class="p">,</span><span class="mi">8</span><span class="p">))</span>
+<span class="n">ax</span><span class="o">.</span><span class="nb">set</span><span class="p">(</span><span class="n">xlabel</span><span class="o">=</span><span class="s">'Date'</span><span class="p">,</span> <span class="n">ylabel</span><span class="o">=</span><span class="s">'Weekly Count'</span><span class="p">,</span>
+       <span class="n">title</span><span class="o">=</span><span class="s">'Emails recieved per Week'</span><span class="p">)</span>
+<span class="n">_</span> <span class="o">=</span> <span class="n">top_sender_over_time</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">)</span> 
+</code></pre></div></div>
+
+<p><img src="files//test%20notebook_43_0.png" alt="png" /></p>
+
+<p>To be honest, it looks like someone threw a plate of spaghetti on my screen… Let’s put it in something a little bit more readable, such as a heatmap. We can do this with the excellent Seaborn <a href="https://seaborn.pydata.org/generated/seaborn.heatmap.html">heatmap</a> function. We can use this on our DataFrame directly, or transpose our DataFrame to get one were the senders are on the Y-axis and dates on the X-axis:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">top_sender_over_time_t</span> <span class="o">=</span> <span class="n">top_sender_over_time</span><span class="o">.</span><span class="n">transpose</span><span class="p">()</span>
+<span class="n">top_sender_over_time_t</span><span class="o">.</span><span class="n">columns</span> <span class="o">=</span> <span class="n">top_sender_over_time_t</span><span class="o">.</span><span class="n">columns</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s">'</span><span class="si">%</span><span class="s">Y-</span><span class="si">%</span><span class="s">m'</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p>Now create the heatmap:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="nf">plot_heatmap</span><span class="p">(</span><span class="n">df_to_plot</span><span class="p">,</span> <span class="n">xlabel</span><span class="p">,</span> <span class="n">ylabel</span><span class="p">,</span> <span class="n">title</span><span class="p">):</span>
+    <span class="s">"""Plots heatmap based of df_to_plot with some extra formatting"""</span>
+    <span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">25</span><span class="p">,</span><span class="mi">10</span><span class="p">))</span>
+
+    <span class="n">ax</span> <span class="o">=</span> <span class="n">sns</span><span class="o">.</span><span class="n">heatmap</span><span class="p">(</span><span class="n">df_to_plot</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">,</span> <span class="n">xticklabels</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s">"RdBu_r"</span><span class="p">)</span>
+
+    <span class="c"># I only want to see 1/5th of the orignal x axis labels for better readabilty</span>
+    <span class="n">xticks</span> <span class="o">=</span> <span class="n">ax</span><span class="o">.</span><span class="n">get_xticks</span><span class="p">()</span>
+    <span class="n">xtick_labels</span> <span class="o">=</span> <span class="n">ax</span><span class="o">.</span><span class="n">get_xticklabels</span><span class="p">()</span>
+    <span class="n">x_labels</span> <span class="o">=</span> <span class="p">[</span><span class="n">label</span> <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">label</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">xtick_labels</span><span class="p">)</span> <span class="k">if</span> <span class="n">i</span> <span class="o">%</span> <span class="mi">5</span> <span class="o">==</span> <span class="mi">0</span><span class="p">]</span>
+    <span class="n">_</span> <span class="o">=</span> <span class="n">ax</span><span class="o">.</span><span class="n">set_xticks</span><span class="p">([</span><span class="n">x</span> <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">x</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">xticks</span><span class="p">)</span> <span class="k">if</span> <span class="n">i</span> <span class="o">%</span> <span class="mi">5</span> <span class="o">==</span> <span class="mi">0</span><span class="p">])</span>
+    <span class="n">_</span> <span class="o">=</span> <span class="n">ax</span><span class="o">.</span><span class="n">set_xticklabels</span><span class="p">(</span><span class="n">x_labels</span><span class="p">)</span>
+
+
+    <span class="c"># The following formats the labels on the x-axis to be more readable</span>
+    <span class="n">_</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">autofmt_xdate</span><span class="p">()</span>
+
+    <span class="c"># Set axis labels and title</span>
+    <span class="n">_</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="n">xlabel</span><span class="p">)</span>
+    <span class="n">_</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="n">ylabel</span><span class="p">)</span>
+    <span class="n">_</span> <span class="o">=</span> <span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="n">title</span><span class="p">)</span>
+    
+<span class="n">plot_heatmap</span><span class="p">(</span><span class="n">top_sender_over_time_t</span><span class="p">,</span> <span class="s">'Sender'</span><span class="p">,</span> <span class="s">'Date'</span><span class="p">,</span> <span class="s">'Emails recieved per Month'</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p><img src="files/test%20notebook_47_0.png" alt="png" /></p>
+
+<p>This looks a bit nicer, its easy to see when the hotspots were for certain senders and how they correlate. The downside of this plot is that the absolute numbers are harder to read.</p>
+
+<h2 id="newsletter-spam">Newsletter spam</h2>
+
+<p>Now back to the original subject - how much of the email in my inbox comes from maillinglists, or <em>“newsletter spam”</em>? Since 2010 Google started adding labels to each email which do a pretty good job at classifying the different types of email. The different categories an email can have are “forums”, “personal”, “social”, “promotions”, and “updates”. Out of these 5 options, the only category I would not consider spam are the personal emails.</p>
+
+<h3 id="building-a-dataframe">Building a DataFrame</h3>
+
+<p>First I delete the ns-vertragings mail. Its not fair to call this newsletter spam, as its basically something I send myself using a cron-job. Its also being mislabeled by gmail alot.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">all_emails</span> <span class="o">=</span> <span class="n">all_emails</span><span class="p">[</span><span class="n">all_emails</span><span class="o">.</span><span class="n">sender</span><span class="o">!=</span><span class="s">'ns-vertraging@ns-vertragingsmail.com'</span><span class="p">]</span>
+</code></pre></div></div>
+
+<p>Each email can have multiple labels. We need to “explode” these into a new dataframe with one row for each label</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">labels_over_time</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">all_emails</span><span class="o">.</span><span class="n">label_ids</span><span class="o">.</span><span class="nb">apply</span><span class="p">(</span><span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">stack</span><span class="p">())</span>
+<span class="n">labels_over_time</span><span class="o">.</span><span class="n">columns</span> <span class="o">=</span> <span class="p">[</span><span class="s">'label'</span><span class="p">]</span>
+<span class="n">labels_over_time</span> <span class="o">=</span> <span class="n">labels_over_time</span><span class="p">[</span><span class="n">labels_over_time</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">get_level_values</span><span class="p">(</span><span class="s">'date'</span><span class="p">)</span> <span class="o">&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">datetime64</span><span class="p">(</span><span class="s">'2004-04-01'</span><span class="p">)]</span>
+</code></pre></div></div>
+
+<p>As you can see, the labels are now shown in a “long” format, with multiple labels per email:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">labels_over_time</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</code></pre></div></div>
+
+<div>
+<style scoped="">
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th></th>
+      <th>label</th>
+    </tr>
+    <tr>
+      <th>date</th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th rowspan="3" valign="top">2019-04-06 05:02:13</th>
+      <th>0</th>
+      <td>UNREAD</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>CATEGORY_UPDATES</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>INBOX</td>
+    </tr>
+    <tr>
+      <th rowspan="2" valign="top">2019-04-06 00:59:27</th>
+      <th>0</th>
+      <td>UNREAD</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>CATEGORY_UPDATES</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+<p>On this data we’ll do the same as we did before on all emails: group by month and get the counts for each label, resample and calculate the rolling average. After that we transpose to get the months as columns and the categories as rows:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">labels_over_time_cnt</span> <span class="o">=</span> <span class="p">(</span><span class="n">labels_over_time</span>
+                  <span class="o">.</span><span class="n">groupby</span><span class="p">([</span><span class="s">'label'</span><span class="p">,</span> <span class="n">pd</span><span class="o">.</span><span class="n">Grouper</span><span class="p">(</span><span class="n">level</span><span class="o">=</span><span class="s">'date'</span><span class="p">,</span> <span class="n">freq</span><span class="o">=</span><span class="s">'M'</span><span class="p">)])</span>
+                  <span class="o">.</span><span class="n">agg</span><span class="p">({</span><span class="s">'label'</span><span class="p">:</span> <span class="p">[</span><span class="s">'count'</span><span class="p">]})</span>
+                  <span class="o">.</span><span class="n">label</span>
+                 <span class="p">)</span>
+
+<span class="n">labels_over_time_cnt</span> <span class="o">=</span> <span class="p">(</span><span class="n">labels_over_time_cnt</span>
+                  <span class="o">.</span><span class="n">unstack</span><span class="p">(</span><span class="n">level</span><span class="o">=</span><span class="s">'label'</span><span class="p">)</span>
+                  <span class="o">.</span><span class="n">resample</span><span class="p">(</span><span class="s">'M'</span><span class="p">)</span><span class="o">.</span><span class="nb">sum</span><span class="p">()</span>
+                  <span class="o">.</span><span class="n">rolling</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="n">center</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">win_type</span><span class="o">=</span><span class="s">'gaussian'</span><span class="p">)</span>
+                  <span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">std</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
+                 <span class="p">)</span>
+<span class="n">labels_over_time_cnt</span> <span class="o">=</span> <span class="n">labels_over_time_cnt</span><span class="p">[</span><span class="s">'count'</span><span class="p">]</span>
+<span class="n">labels_over_time_cnt_t</span> <span class="o">=</span> <span class="n">labels_over_time_cnt</span><span class="o">.</span><span class="n">transpose</span><span class="p">()</span> 
+
+<span class="n">labels_over_time_cnt_t</span><span class="o">.</span><span class="n">columns</span> <span class="o">=</span> <span class="n">labels_over_time_cnt_t</span><span class="o">.</span><span class="n">columns</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s">'</span><span class="si">%</span><span class="s">Y-</span><span class="si">%</span><span class="s">m'</span><span class="p">)</span>
+
+<span class="c"># Keep only the category labels</span>
+<span class="n">labels_over_time_cnt_t</span> <span class="o">=</span> <span class="n">labels_over_time_cnt_t</span><span class="p">[</span><span class="n">labels_over_time_cnt_t</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="nb">str</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s">'CATEGORY'</span><span class="p">)]</span>
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">plot_heatmap</span><span class="p">(</span><span class="n">labels_over_time_cnt_t</span><span class="p">,</span> <span class="s">'Sender'</span><span class="p">,</span> <span class="s">'Date'</span><span class="p">,</span> <span class="s">'Emails recieved per Month'</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p><img src="files/test%20notebook_58_0.png" alt="png" /></p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">20</span><span class="p">,</span><span class="mi">8</span><span class="p">))</span>
+<span class="n">ax</span><span class="o">.</span><span class="nb">set</span><span class="p">(</span><span class="n">xlabel</span><span class="o">=</span><span class="s">'Date'</span><span class="p">,</span> <span class="n">ylabel</span><span class="o">=</span><span class="s">'Weekly Count'</span><span class="p">,</span>
+       <span class="n">title</span><span class="o">=</span><span class="s">'Emails recieved per Week'</span><span class="p">)</span>
+<span class="n">_</span> <span class="o">=</span> <span class="n">labels_over_time_cnt</span><span class="o">.</span><span class="nb">filter</span><span class="p">(</span><span class="n">like</span><span class="o">=</span><span class="s">'CATEGORY'</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">)</span> 
+</code></pre></div></div>
+
+<p><img src="files/test%20notebook_59_0.png" alt="png" /></p>
+
+<p>I think its clear that the number of updates, promoties and social media updates are growing fast. The actual numbers are hard to gauge as I’ve been consistently inconsistent in clearing my inbox of these type of emails.</p>
+
+<h2 id="deleting-events">Deleting events</h2>
+
+<p>I’ll leave the actual deletion as an exercise for the reader. You can batch delete messages with:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">service</span><span class="o">.</span><span class="n">users</span><span class="p">()</span><span class="o">.</span><span class="n">messages</span><span class="p">()</span><span class="o">.</span><span class="n">batchDelete</span><span class="p">(</span><span class="n">userId</span><span class="o">=</span><span class="n">user_id</span><span class="p">,</span> <span class="n">body</span><span class="o">=</span><span class="p">{</span>
+    <span class="s">"ids"</span><span class="p">:</span> <span class="p">[</span> <span class="c"># The IDs of the messages to delete.</span>
+      <span class="s">"A String"</span><span class="p">,</span>
+    <span class="p">],</span>
+  <span class="p">})</span><span class="o">.</span><span class="n">execute</span><span class="p">()</span>
+</code></pre></div></div>
+
+  </div>
+
+</article>
+
+<div class="container mx-auto px-2 py-2 clearfix">
+  <!-- Use if you want to show previous and next for all posts. -->
+
+
+
+  <div class="col-4 sm-width-full left mr-lg-4 mt-3">
+    <a class="no-underline border-top-thin py-1 block" href="/2017/10/14/super-fast-string-matching.html">
+      <span class="h5 bold text-accent">Previous</span>
+      <p class="bold h3 link-primary mb-1">Super Fast String Matching in Python</p>
+      <p>Traditional approaches to string matching such as the Jaro-Winkler or Levenshtein distance measure are too slow for large datasets. Using...</p>
+    </a>
+  </div>
+  
+  
+
+</div>
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-105892364-1', 'auto');
+  ga('send', 'pageview');
+
+</script>
+    </div>
+
+    <div class="border-top-thin clearfix mt-2 mt-lg-4">
+  <div class="container mx-auto px-2">
+    <p class="col-8 sm-width-full left py-2 mb-0">This project is maintained by <a class="text-accent" href="https://github.com/bergvca">bergvca</a></p>
+    <ul class="list-reset right clearfix sm-width-full py-2 mb-2 mb-lg-0">
+      <li class="inline-block mr-1">
+        <a href="https://twitter.com/share" class="twitter-share-button" data-hashtags="van den Blog">Tweet</a> <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
+      </li>
+      <li class="inline-block">
+        <a class="github-button" href="https://github.com/bergvca/" data-icon="octicon-star" data-count-href="bergvca//stargazers" data-count-api="/repos/bergvca/#stargazers_count" data-count-aria-label="# stargazers on GitHub" aria-label="Star bergvca/ on GitHub">Star</a>
+      </li>
+    </ul>
+  </div>
+</div>
+
+
+  </body>
+
+</html>
