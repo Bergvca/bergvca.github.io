@@ -654,7 +654,7 @@ _ = moving_av.plot(ax=ax)
 ```
 
 
-![png](files/test%20notebook_37_0.png)
+![png](/media/img/gmail_analysis/test%20notebook_37_0.png)
 
 
 Very cool! For the reader this might be "just" a graph, which is why I recommend to clone this notebook and run it on your own data. For me I see a clear period when I was in university, a period when I was not in university and using another email address, a period when I was basically using gmail as a substitute for what is now WhatsApp, and the rise of _newsletter_ spam.
@@ -700,7 +700,7 @@ _ = top_sender_over_time.plot(ax=ax)
 ```
 
 
-![png](files//test%20notebook_43_0.png)
+![png](/media/img/gmail_analysis/test%20notebook_43_0.png)
 
 
 To be honest, it looks like someone threw a plate of spaghetti on my screen... Let's put it in something a little bit more readable, such as a heatmap. We can do this with the excellent Seaborn [heatmap](https://seaborn.pydata.org/generated/seaborn.heatmap.html) function. We can use this on our DataFrame directly, or transpose our DataFrame to get one were the senders are on the Y-axis and dates on the X-axis:
@@ -741,7 +741,7 @@ plot_heatmap(top_sender_over_time_t, 'Sender', 'Date', 'Emails recieved per Mont
 ```
 
 
-![png](files/test%20notebook_47_0.png)
+![png](/media/img/gmail_analysis/test%20notebook_47_0.png)
 
 
 This looks a bit nicer, its easy to see when the hotspots were for certain senders and how they correlate. The downside of this plot is that the absolute numbers are harder to read.
@@ -865,7 +865,7 @@ plot_heatmap(labels_over_time_cnt_t, 'Sender', 'Date', 'Emails recieved per Mont
 ```
 
 
-![png](files/test%20notebook_58_0.png)
+![png](/media/img/gmail_analysis/test%20notebook_58_0.png)
 
 
 
@@ -877,7 +877,7 @@ _ = labels_over_time_cnt.filter(like='CATEGORY', axis=1).plot(ax=ax)
 ```
 
 
-![png](files/test%20notebook_59_0.png)
+![png](/media/img/gmail_analysis/test%20notebook_59_0.png)
 
 
 I think its clear that the number of updates, promoties and social media updates are growing fast. The actual numbers are hard to gauge as I've been consistently inconsistent in clearing my inbox of these type of emails.
