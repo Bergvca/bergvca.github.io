@@ -5,7 +5,7 @@ pre {
     border-left: $spacer-1 solid $color-border;
     margin: $spacer-3 0;
     padding-left: 16px;
-    width: (9 / 12 * 100%); // matches col-9
+    width: (100%); // matches col-9
     overflow-x: auto;
 }
 
