@@ -28,7 +28,7 @@ dl, dd, ol, ul, figure {
  */
 body {
   font-family: "Helvetica Neue", Arial, sans-serif;
-  font-size: 16px;
+  font-size: 12px;
   line-height: 1.5;
   color: #181818;
   background-color: #fff; }
@@ -77,7 +77,7 @@ pre {
 
 code {
   color: #DC3918;
-  font-size: 16px;
+  font-size: 12px;
   padding: 1px 4px; }
 
 .highlight {
@@ -359,7 +359,7 @@ code {
 
 /* Literal.Number.Integer.Long */
 .prose p, .prose ol, .prose ul {
-  font-size: 20px;
+  font-size: 14px;
   margin-bottom: 1em;
   width: 100%; }
   @media (min-width: 52em) {

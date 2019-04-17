@@ -653,7 +653,7 @@
 <span class="n">_</span> <span class="o">=</span> <span class="n">moving_av</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">)</span> 
 </code></pre></div></div>
 
-<p><img src="files/test%20notebook_37_0.png" alt="png" /></p>
+<p><img src="/media/img/gmail_analysis/test%20notebook_37_0.png" alt="png" /></p>
 
 <p>Very cool! For the reader this might be “just” a graph, which is why I recommend to clone this notebook and run it on your own data. For me I see a clear period when I was in university, a period when I was not in university and using another email address, a period when I was basically using gmail as a substitute for what is now WhatsApp, and the rise of <em>newsletter</em> spam.</p>
 
@@ -691,7 +691,7 @@
 <span class="n">_</span> <span class="o">=</span> <span class="n">top_sender_over_time</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">)</span> 
 </code></pre></div></div>
 
-<p><img src="files//test%20notebook_43_0.png" alt="png" /></p>
+<p><img src="/media/img/gmail_analysis/test%20notebook_43_0.png" alt="png" /></p>
 
 <p>To be honest, it looks like someone threw a plate of spaghetti on my screen… Let’s put it in something a little bit more readable, such as a heatmap. We can do this with the excellent Seaborn <a href="https://seaborn.pydata.org/generated/seaborn.heatmap.html">heatmap</a> function. We can use this on our DataFrame directly, or transpose our DataFrame to get one were the senders are on the Y-axis and dates on the X-axis:</p>
 
@@ -726,7 +726,7 @@
 <span class="n">plot_heatmap</span><span class="p">(</span><span class="n">top_sender_over_time_t</span><span class="p">,</span> <span class="s">'Sender'</span><span class="p">,</span> <span class="s">'Date'</span><span class="p">,</span> <span class="s">'Emails recieved per Month'</span><span class="p">)</span>
 </code></pre></div></div>
 
-<p><img src="files/test%20notebook_47_0.png" alt="png" /></p>
+<p><img src="/media/img/gmail_analysis/test%20notebook_47_0.png" alt="png" /></p>
 
 <p>This looks a bit nicer, its easy to see when the hotspots were for certain senders and how they correlate. The downside of this plot is that the absolute numbers are harder to read.</p>
 
@@ -833,7 +833,7 @@
 <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">plot_heatmap</span><span class="p">(</span><span class="n">labels_over_time_cnt_t</span><span class="p">,</span> <span class="s">'Sender'</span><span class="p">,</span> <span class="s">'Date'</span><span class="p">,</span> <span class="s">'Emails recieved per Month'</span><span class="p">)</span>
 </code></pre></div></div>
 
-<p><img src="files/test%20notebook_58_0.png" alt="png" /></p>
+<p><img src="/media/img/gmail_analysis/test%20notebook_58_0.png" alt="png" /></p>
 
 <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">20</span><span class="p">,</span><span class="mi">8</span><span class="p">))</span>
 <span class="n">ax</span><span class="o">.</span><span class="nb">set</span><span class="p">(</span><span class="n">xlabel</span><span class="o">=</span><span class="s">'Date'</span><span class="p">,</span> <span class="n">ylabel</span><span class="o">=</span><span class="s">'Weekly Count'</span><span class="p">,</span>
@@ -841,7 +841,7 @@
 <span class="n">_</span> <span class="o">=</span> <span class="n">labels_over_time_cnt</span><span class="o">.</span><span class="nb">filter</span><span class="p">(</span><span class="n">like</span><span class="o">=</span><span class="s">'CATEGORY'</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">)</span> 
 </code></pre></div></div>
 
-<p><img src="files/test%20notebook_59_0.png" alt="png" /></p>
+<p><img src="/media/img/gmail_analysis/test%20notebook_59_0.png" alt="png" /></p>
 
 <p>I think its clear that the number of updates, promoties and social media updates are growing fast. The actual numbers are hard to gauge as I’ve been consistently inconsistent in clearing my inbox of these type of emails.</p>
 
