@@ -8,7 +8,7 @@ date:   2019-04-13
 <img src="/media/img/searchdontsort.jpg" style="height: 100%;width: 100%;">
 
 
-In the beginning there was spam. Cheap, unpersonalised, mass-sent junk mail, easily defeated by simple [Bayesian Filters](https://en.wikipedia.org/wiki/Naive_Bayes_spam_filtering). Over the years spammers improved and an arms race between spammers and spam filters was started. Spam was to me never more then a minor nuisance, and when gmail was launched, and all of google's might was put into the race spam in your inbox became virtually extinct. Now I don't even remember what an email for "ch3aP V1agrA" email looks like. 
+In the beginning there was spam. Cheap, unpersonalised, mass-sent junk mail, easily defeated by simple [Bayesian Filters](https://en.wikipedia.org/wiki/Naive_Bayes_spam_filtering). Over the years spammers improved and an arms race between spammers and spam filters was started. Spam was to me never more then a minor nuisance, and when gmail was launched, all of google's might was put into the race and spam in your inbox became virtually extinct. Now I don't even remember what a "ch3aP V1agrA" email looks like. 
 
 Does this mean my inbox is empty? No. In fact I feel I receive more unwanted mail than ever. With the internet being more and more intertwined in our lives, we drop our email addresses with more and more companies, whom in turn have started sending "promotions", and "updates" more and more frequent. Even though they usually contain an "unsubscribe" option which I sometimes spend some time clicking through, these mailing lists have become a bigger source of irritation than spam ever was.
 
@@ -36,7 +36,7 @@ sns.set()
 ```
 
 ## Connect to the Gmail API
-To get our emails, we will use the Gmail API. To to this we first need to enable the Gmail API and download a credential file. In this case I have stored the credential file next to the jupyter notebook. Follow steps 1 and 2 on [this page](https://developers.google.com/gmail/api/quickstart/python#step_1_turn_on_the) to enable the API and get the credential file. 
+To get our emails, we will use the Gmail API. To do this we first need to enable the Gmail API and download a credential file. In this case I have stored the credential file next to the jupyter notebook. Follow steps 1 and 2 on [this page](https://developers.google.com/gmail/api/quickstart/python#step_1_turn_on_the) to enable the API and get the credential file. 
 
 First we need to connect to the Gmail api with the credentials file and build a "Resource" object:
 
@@ -89,7 +89,7 @@ labels = service.users().labels().list(userId='me').execute()
 
 ### Loading our data
 
-To download all our emails we can use the _get_ function. This function needs an email id as as input. To get these IDs we need the _users.messages.list_ method. The following function returns a list with all email id's belonging to a specific _label_ (e.g. Inbox, Spam, Sent, etc):
+To download all our emails we can use the _get_ function. This function needs an email id as input. To get these IDs we need the _users.messages.list_ method. The following function returns a list with all email id's belonging to a specific _label_ (e.g. Inbox, Spam, Sent, etc):
 
 
 ```python
@@ -259,7 +259,7 @@ all_emails.head()
       <td>Quora Digest &lt;digest-noreply@quora.com&gt;</td>
       <td>120030</td>
       <td>Why do so many software engineers/ programmers...</td>
-      <td>cvandenberg@gmail.com</td>
+      <td>me@gmail.com</td>
     </tr>
     <tr>
       <th>1</th>
@@ -269,7 +269,7 @@ all_emails.head()
       <td>Glassdoor Jobs &lt;noreply@glassdoor.com&gt;</td>
       <td>35059</td>
       <td>An opportunity for you at Trupanion was just p...</td>
-      <td>cvandenberg@gmail.com</td>
+      <td>me@gmail.com</td>
     </tr>
     <tr>
       <th>2</th>
@@ -279,7 +279,7 @@ all_emails.head()
       <td>ns-vertraging@ns-vertragingsmail.com</td>
       <td>5494</td>
       <td>LET OP: Je trein is geannuleerd</td>
-      <td>Cvandenberg@gmail.com</td>
+      <td>me@gmail.com</td>
     </tr>
     <tr>
       <th>3</th>
@@ -289,7 +289,7 @@ all_emails.head()
       <td>ns-vertraging@ns-vertragingsmail.com</td>
       <td>5493</td>
       <td>LET OP: Je trein is geannuleerd</td>
-      <td>cvandenberg@gmail.com</td>
+      <td>me@gmail.com</td>
     </tr>
     <tr>
       <th>4</th>
@@ -299,7 +299,7 @@ all_emails.head()
       <td>ns-vertraging@ns-vertragingsmail.com</td>
       <td>5486</td>
       <td>LET OP: Je trein is geannuleerd</td>
-      <td>Cvandenberg@gmail.com</td>
+      <td>me@gmail.com</td>
     </tr>
   </tbody>
 </table>
@@ -569,7 +569,7 @@ top_senders.sort_values(by=[('size_mb', 'sum')], ascending=False).head(10)
   </thead>
   <tbody>
     <tr>
-      <th>cvandenberg@gmail.com</th>
+      <th>me@gmail.com</th>
       <td>378</td>
       <td>300.656649</td>
     </tr>
@@ -703,7 +703,7 @@ _ = top_sender_over_time.plot(ax=ax)
 ![png](/media/img/gmail_analysis/test%20notebook_43_0.png)
 
 
-To be honest, it looks like someone threw a plate of spaghetti on my screen... Let's put it in something a little bit more readable, such as a heatmap. We can do this with the excellent Seaborn [heatmap](https://seaborn.pydata.org/generated/seaborn.heatmap.html) function. We can use this on our DataFrame directly, or transpose our DataFrame to get one were the senders are on the Y-axis and dates on the X-axis:
+To be honest, it looks like someone threw a plate of spaghetti on my screen... Let's put it in something a little bit more readable, such as a heatmap. We can do this with the excellent Seaborn [heatmap](https://seaborn.pydata.org/generated/seaborn.heatmap.html) function. We can use this on our DataFrame directly, or transpose our DataFrame to get one where the senders are on the Y-axis and dates on the X-axis:
 
 
 ```python
