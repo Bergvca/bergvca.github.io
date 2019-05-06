@@ -8,13 +8,13 @@ date:   2019-04-13
 <img src="/media/img/searchdontsort.jpg" style="height: 100%;width: 100%;">
 
 
-In the beginning there was spam. Cheap, unpersonalised, mass-send junk mail, easily defeated by simple [Bayesian Filters](https://en.wikipedia.org/wiki/Naive_Bayes_spam_filtering). Over the years spammers improved and an arms race between spammers and spam filters was started. Spam was to me never more then a minor nuisance, and when gmail was launched, and all of google's might was put into the race spam in your inbox became virtually extinct. Now I don't even remember what an email for "ch3aP V1agrA" email looks like. 
+In the beginning there was spam. Cheap, unpersonalised, mass-sent junk mail, easily defeated by simple [Bayesian Filters](https://en.wikipedia.org/wiki/Naive_Bayes_spam_filtering). Over the years spammers improved and an arms race between spammers and spam filters was started. Spam was to me never more then a minor nuisance, and when gmail was launched, and all of google's might was put into the race spam in your inbox became virtually extinct. Now I don't even remember what an email for "ch3aP V1agrA" email looks like. 
 
-Does this mean my inbox is empty? No. In fact I feel I receive more unwanted mail then ever. With the internet being more and more intertwined in our lives, we drop our email addresses with more and more companies, whom in turn have started sending "promotions", and "updates" more and more frequent. Even though they usually contain an "unsubscribe" option which I sometimes spend some time clicking though, these mailing lists have become a bigger source of irritation then spam ever was.
+Does this mean my inbox is empty? No. In fact I feel I receive more unwanted mail than ever. With the internet being more and more intertwined in our lives, we drop our email addresses with more and more companies, whom in turn have started sending "promotions", and "updates" more and more frequent. Even though they usually contain an "unsubscribe" option which I sometimes spend some time clicking through, these mailing lists have become a bigger source of irritation than spam ever was.
 
-This jupyter notebook started out as a way to regularly delete all "Newsletter spam" from my inbox. It turned out however, to be a lot more fun to dig through my gmail inbox, which is what this post is mostly about. I would recommend everyone reading this to clone this notebook and start the same journey on your own inbox. Viewing stats on my inbox is not that interesting, viewing the same stats on your own inbox? A completely different story. It also gives you a sense on how big mailing list spam has become. Although the Gmail API has a delete option - it went against my Data Scientist instinct to actually delete anything. 
+This Jupyter Notebook started out as a way to regularly delete all "Newsletter spam" from my inbox. It turned out however, to be a lot more fun to dig through my gmail inbox, which is what this post is mostly about. I would recommend everyone reading this to clone this notebook and start the same journey on your own inbox. Viewing stats on my inbox is not that interesting, viewing the same stats on your own inbox? A completely different story. It also gives you a sense on how big mailing list spam has become. Although the Gmail API has a delete option - it went against my Data Scientist instinct to actually delete anything. 
 
-
+Let's start with all required imports:
 ```python
 import httplib2
 import os
@@ -36,9 +36,9 @@ sns.set()
 ```
 
 ## Connect to the Gmail API
-To get our emails, we will use the Gmail API. To to this we first need to enable the Gmail api and download a credential file. In this case I have stored the credential file next to the jupyter notebook. Follow steps 1 and 2 on [this page](https://developers.google.com/gmail/api/quickstart/python#step_1_turn_on_the) to enable the API and get the credential file. 
+To get our emails, we will use the Gmail API. To to this we first need to enable the Gmail API and download a credential file. In this case I have stored the credential file next to the jupyter notebook. Follow steps 1 and 2 on [this page](https://developers.google.com/gmail/api/quickstart/python#step_1_turn_on_the) to enable the API and get the credential file. 
 
-First we need to connect to the gmail api with the credentials file and build a "Resource" object:
+First we need to connect to the Gmail api with the credentials file and build a "Resource" object:
 
 
 ```python
@@ -397,10 +397,10 @@ print(f'The median size is only {(all_emails["size"].median() / 1024):.2f} kb')
 
 
 
-![png](files/test%20notebook_25_1.png)
+![png](/media/img/test%20notebook_25_1.png)
 
 
-Now lets see who our most frequent senders are. First we want to clean up the adresses a bit and strip out only the actuall email adress:
+Now lets see who our most frequent senders are. First we want to clean up the addresses a bit and strip out only the actual email address:
 
 
 ```python
@@ -412,7 +412,7 @@ all_emails['sender_norm'] = (all_emails['sender']
                            .str.replace('[', ''))
 ```
 
-To see who the top senders are we can group by this new column and calculate the number of emails recieved from this person (_count_) and the total size of all emails send by this person (_sum_ of size_mb)
+To see who the top senders are we can group by this new column and calculate the number of emails received from this person (_count_) and the total size of all emails sent by this person (_sum_ of size_mb)
 
 
 ```python
@@ -521,7 +521,7 @@ top_senders.head(10)
 
 
 
-I've anonymised most of the senders for obvious reasons. I'm glad too see there are some friends and family members in the top 10, and it's not only newsletters. My number 1 spammer: _ns-vertraging@ns-vertragingsmail.com_ is an automated mail I get when the train I used to take gets delayed, see [this previous blog post](https://bergvca.github.io/2017/02/01/ikbenwatlater.html). As you can see, this train is delayed a lot... It's also good to know that the newsletters are generally much smaller then the emails from friends. If we sort by size we see mostly natural persons in the top 10, me sending myself emails with large attachments being number 1.
+I've anonymised most of the senders for obvious reasons. I'm glad to see there are some friends and family members in the top 10, and it's not only newsletters. My number 1 spammer: _ns-vertraging@ns-vertragingsmail.com_ is an automated mail I get when the train I used to take gets delayed, see [this previous blog post](https://bergvca.github.io/2017/02/01/ikbenwatlater.html). As you can see, this train is delayed a lot... It's also good to know that the newsletters are generally much smaller than the emails from friends. If we sort by size we see mostly natural persons in the top 10, me sending myself emails with large attachments being number 1.
 
 
 ```python
@@ -625,7 +625,7 @@ top_senders.sort_values(by=[('size_mb', 'sum')], ascending=False).head(10)
 
 
 ## Emails over time
-Lets calculate the amount of emails received per week. First we need to change the index of the DataFrame to the date column:
+Let's calculate the amount of emails received per week. First we need to change the index of the DataFrame to the date column:
 
 
 ```python
@@ -689,7 +689,7 @@ Our columns now are a MultiIndex with three levels, the first two having just a 
 top_sender_over_time = top_sender_over_time['sender_norm']['count']
 ```
 
-Lets plot it!
+Let's plot it!
 
 
 ```python
@@ -880,7 +880,7 @@ _ = labels_over_time_cnt.filter(like='CATEGORY', axis=1).plot(ax=ax)
 ![png](/media/img/gmail_analysis/test%20notebook_59_0.png)
 
 
-I think its clear that the number of updates, promoties and social media updates are growing fast. The actual numbers are hard to gauge as I've been consistently inconsistent in clearing my inbox of these type of emails.
+I think it's clear that the number of updates, promotions and social media updates are growing fast. The actual numbers are hard to gauge as I've been consistently inconsistent in clearing my inbox of these type of emails.
 
 ## Deleting events
 
