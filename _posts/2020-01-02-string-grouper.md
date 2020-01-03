@@ -61,7 +61,8 @@ Series.
  
  Using this DataFrame it is trivial to get all matches (this can be done using the `get_matches` function),
  or to get the most similar item in *master* of a set of *duplicates* (using the `get_groups` function). 
- ### Get Groups
+
+### Get Groups
  
  If the `get_groups` function is called on a StringGrouper with only a *master* Series of strings, a 
  single linkage clustering approach is used to get a single identifying string for each group. This works
