@@ -60,8 +60,7 @@ of a string is given from the *master* Series, and on the right side the index o
 Series.  
  
  Using this DataFrame it is trivial to get all matches (this can be done using the `get_matches` function),
- or to get the most similar item in *master* of a set of *duplicates* (using the `get_groups` function)
- 
+ or to get the most similar item in *master* of a set of *duplicates* (using the `get_groups` function). 
  ### Get Groups
  
  If the `get_groups` function is called on a StringGrouper with only a *master* Series of strings, a 
