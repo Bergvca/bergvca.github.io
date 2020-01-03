@@ -1,9 +1,8 @@
 ---
 layout: post
-title:  "Super Fast String Matching pt. 2: string_grouper"
+title:  "String Grouper"
 date:   2020-01-02
 ---
-
 
 <img src="/media/img/words.jpg" style="height: 100%;width: 100%;">
 

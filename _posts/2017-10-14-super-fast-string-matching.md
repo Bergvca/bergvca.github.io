@@ -7,9 +7,11 @@ date:   2017-10-14
 Traditional approaches to string matching such as the [Jaro-Winkler](https://en.wikipedia.org/wiki/Jaro%E2%80%93Winkler_distance) or [Levenshtein](https://en.wikipedia.org/wiki/Levenshtein_distance) distance measure are too slow for large datasets. Using TF-IDF with N-Grams as terms
  to find similar strings transforms the problem into a matrix multiplication problem, which is computationally much cheaper. Using this approach made it possible to search for near duplicates in a set of 663,000 company names in 42 minutes using only a dual-core laptop. 
 
-*Update: run all code in the below post with one line using [string_grouper](/2019/01/02/string-grouper.html*:
+*Update: run all code in the below post with one line using (string_grouper)[/2019/01/02/string-grouper.html]*:
 
-`match_strings(companies['Company Name'])`
+```python
+match_strings(companies['Company Name'])
+```
 
 ## Name Matching
 
