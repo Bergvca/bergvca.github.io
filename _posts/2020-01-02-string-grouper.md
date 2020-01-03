@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "The rise of Newsletter Spam: A journey through my Gmail inbox"
+title:  "Super Fast String Matching pt. 2: string_grouper"
 date:   2020-01-02
 ---
 
@@ -38,10 +38,10 @@ If there are no strings above the threshold, the original duplicate string is re
 
 Examples can be found on git:
 
-* (Find all matches within a single dataset)[https://github.com/Bergvca/string_grouper#find-all-matches-within-a-single-dataset]
-* (Find all matches in between two datasets.)[https://github.com/Bergvca/string_grouper#find-all-matches-in-between-two-datasets]
-* (For a second dataset, find only the most similar match)[https://github.com/Bergvca/string_grouper#for-a-second-dataset-find-only-the-most-similar-match]
-* (Deduplicate a single dataset and show items with most duplicates)[https://github.com/Bergvca/string_grouper#deduplicate-a-single-dataset-and-show-items-with-most-duplicates]
+* [Find all matches within a single dataset](https://github.com/Bergvca/string_grouper#find-all-matches-within-a-single-dataset)
+* [Find all matches in between two datasets](https://github.com/Bergvca/string_grouper#find-all-matches-in-between-two-datasets)
+* [For a second dataset, find only the most similar match](https://github.com/Bergvca/string_grouper#for-a-second-dataset-find-only-the-most-similar-match)
+* [Deduplicate a single dataset and show items with most duplicates](https://github.com/Bergvca/string_grouper#deduplicate-a-single-dataset-and-show-items-with-most-duplicates)
 
 ## How it works
 
@@ -82,5 +82,5 @@ Series.
  6. The strings with the same indices as the group id's are returned. The result is a Series with the
  same length as the master Series. 
  
-<img src="/media/img/sg_graph.jpg" style="height: 100%;width: 100%;">
+<img src="/media/img/sg_graph.png" style="height: 100%;width: 100%;">
   
