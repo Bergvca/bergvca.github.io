@@ -11,7 +11,7 @@ previous blog [Super Fast String Matching](/2017/10/14/super-fast-string-matchin
 explained a process of finding similar strings using **tf-idf** and the **cosine similarity**.
 
 The process however leaves you with a long list of similar strings, whereas in my experience you 
-often want a one-to-one mapping of an original string to a new string. In other words you want to *group*
+often want a one-to-one mapping of an original string to a new string. In other words, you want to *group*
 similar strings together, and pick one single string as the identifier for each group. To solve
 this I've created a small module called: ***[string_grouper](https://github.com/Bergvca/string_grouper)***.
 
@@ -48,12 +48,12 @@ All functions are build using a `StringGrouper` object. The StringGrouper takes 
 or two (master and duplicates) [pandas series of strings](https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.Series.html) as input. To *build* the StringGrouper the 
 `fit` function is called. Once the StringGrouper is *fit* it calculates the *tf-idf* matrices for 
 either only the master or both the master and duplicates. After these matrices are calculated
-it calculates the dot product between the two matrices. In case of only a master eries, it calculates 
+it calculates the dot product between the two matrices. In case of only a master Series, it calculates 
 the dot product of the matrix and its own transpose. Since the dot product is the same as the cosine
 similarity for normalized matrices (e.g. a tf-idf matrix), this results in a sparse matrix of 
 cosine similarities. Only the similarities above a certain threshold (default: 0.8) are stored. 
 
-This sparse matrix is translated to a DataFrame of *matches*. Were on the left side the index
+This sparse matrix is translated to a DataFrame of *matches*. On the left side the index
 of a string is given from the *master* Series, and on the right side the index of a string in the 
 *duplicate* series. If there is no duplicate Series, the index is also that of a string in the master
 Series.  
@@ -63,16 +63,16 @@ Series.
 
 ### Get Groups
  
- If the `get_groups` function is called on a StringGrouper with only a *master* Series of strings. A 
+ If the `get_groups` function is called on a StringGrouper with only a *master* Series of strings a 
  single linkage clustering approach is used to get a single identifying string for each group. This works
  as follows:
  
- 1. Make sure each item matches with itself
+ 1. Make sure each item matches with itself.
  2. For each string index, find the lowest other string index that is a match, this will be the 
  *group id*. 
  3. Some groups will be *orphaned* - the group id will not be in the group itself. See for example in the 
  image below. Here the strings with index 4 and 5 will get group id 3. The string with index 3 however,
- will get group id 2 since its the lowest match. 
+ will get group id 2 since it's the lowest match. 
  4. To solve this, the group id of the index that has the id of the group id of the orphaned group is taken and 
  assigned to the orphaned group.  In the image below this means that the group with group id 3 will
  get renamed to group id 2. 
