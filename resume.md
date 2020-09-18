@@ -33,12 +33,15 @@ MapReduce (Hive, Pig and streaming) &bull; Tableau &bull; Java &bull; R &bull; L
 ---
 ## Professional Experience
 ### BNP Paribas Amsterdam 
-`202 - Now` **Datascientist** Continuing the global rollout of the highly visible big data platform FBA. 
-*   Manage a globally consistent codebase across three regions (Americas, EMEA and APAC)
-*   Greatly reduce the False Positive alerting rate using statistical and machine learning techniques
-*  Contribute to the platform strategy and lead its expansion to various business areas
+`2020 - Now` **Datascientist** Continuing the global rollout of the highly visible big data platform FBA. 
+&bull;  Manage a globally consistent codebase across three regions (Americas, EMEA and APAC)
+&bull; Greatly reduce the False Positive alerting rate using statistical and machine learning techniques
+&bull;  Contribute to the platform strategy and lead its expansion to various business areas
+
 ### BNP Paribas New York
+
 `2018 - 2020`  **Datascientist (Vice President)**
+
 Setup the holistic supervisory and surveillance platform _ForcePoint FBA_. Designed and built
 various parts of the BNPP specific tooling, including Entity Resolution, NLP systems, and visualising reports. 
 Working mainly with ElasticSearch, Python and PostgreSQL. 
