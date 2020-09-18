@@ -10,12 +10,12 @@ Data Scientist
 <br>(929) 213 3666 
 <br> cvandenberg@gmail.com
 <div id="webaddress">
-<img src="/media/img/linkedinlog.png" alt="linkedimg">&nbsp;<a href="https://www.linkedin.com/in/chris-van-den-berg/">linkedin</a> &emsp; <img src="/media/img/github-logo.png" alt="gitimg">&nbsp;<a href="https://github.com/Bergvca">git</a> / <a href="https://gist.github.com/Bergvca">gist</a> &emsp;<img src="/media/img/angellist.png" alt="angelimg">&nbsp;<a href="https://angel.co/chris-a-van-den-berg">angellist</a>
+<img src="/media/img/linkedinlog.png" alt="linkedimg">&nbsp;<a href="https://www.linkedin.com/in/chris-van-den-berg/">linkedin</a> &emsp; <img src="/media/img/github-logo.png" alt="gitimg">&nbsp;<a href="https://github.com/Bergvca">git</a> / <a href="https://gist.github.com/Bergvca">gist</a> &emsp;
 </div>
 ---
 
 ## Profile
-_**All round data scientist with 6+ years of experience in the data analytics and AI space**_
+_**All round data scientist with 8+ years of experience in the data analytics and AI space**_
 
 ### Results
 * &bull; At BNP Paribas, set up and integrated the Front Office supervisory tool **ForcePoint UEBA**
@@ -32,9 +32,14 @@ MapReduce (Hive, Pig and streaming) &bull; Tableau &bull; Java &bull; R &bull; L
 
 ---
 ## Professional Experience
+### BNP Paribas Amsterdam 
+`202 - Now` **Datascientist** Continuing the global rollout of the highly visible big data platform FBA. 
+*   Manage a globally consistent codebase across three regions (Americas, EMEA and APAC)
+*   Greatly reduce the False Positive alerting rate using statistical and machine learning techniques
+*  Contribute to the platform strategy and lead its expansion to various business areas
 ### BNP Paribas New York
-`2018 - Now`  **Datascientist**
-Setup and maintaining the holistic supervisory and surveillance platform _ForcePoint UEBA_. Designed and built
+`2018 - 2020`  **Datascientist (Vice President)**
+Setup the holistic supervisory and surveillance platform _ForcePoint FBA_. Designed and built
 various parts of the BNPP specific tooling, including Entity Resolution, NLP systems, and visualising reports. 
 Working mainly with ElasticSearch, Python and PostgreSQL. 
 

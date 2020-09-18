@@ -8,7 +8,7 @@ My name is Chris van den Berg. I'm a Data Scientist who loves to build stuff. Th
 I've worked on. 
 
 
-<img src="/media/img/linkedinlog.png" alt="linkedimg">&nbsp;<a href="https://www.linkedin.com/in/chris-van-den-berg/">linkedin</a> &emsp; <img src="/media/img/github-logo.png" alt="gitimg">&nbsp;<a href="https://github.com/Bergvca">git</a> / <a href="https://gist.github.com/Bergvca">gist</a> &emsp;<img src="/media/img/angellist.png" alt="angelimg">&nbsp;<a href="https://angel.co/chris-a-van-den-berg">angellist</a>
+<img src="/media/img/linkedinlog.png" alt="linkedimg">&nbsp;<a href="https://www.linkedin.com/in/chris-van-den-berg/">linkedin</a> &emsp; <img src="/media/img/github-logo.png" alt="gitimg">&nbsp;<a href="https://github.com/Bergvca">git</a> / <a href="https://gist.github.com/Bergvca">gist</a>
 
 
 
