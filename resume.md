@@ -6,8 +6,8 @@ title: Resume
 Data Scientist
 
 
-124 West 60th Street, New York, New York
-<br>(929) 213 3666 
+The Netherlands
+
 <br> cvandenberg@gmail.com
 <div id="webaddress">
 <img src="/media/img/linkedinlog.png" alt="linkedimg">&nbsp;<a href="https://www.linkedin.com/in/chris-van-den-berg/">linkedin</a> &emsp; <img src="/media/img/github-logo.png" alt="gitimg">&nbsp;<a href="https://github.com/Bergvca">git</a> / <a href="https://gist.github.com/Bergvca">gist</a> &emsp;
@@ -18,7 +18,7 @@ Data Scientist
 _**All round data scientist with 8+ years of experience in the data analytics and AI space**_
 
 ### Results
-* &bull; At BNP Paribas, set up and integrated the Front Office supervisory tool **ForcePoint UEBA**
+* &bull; At BNP Paribas, set up and integrated the Front Office supervisory tool **ForcePoint FBA**
 * &bull; At Rabobank, built a fraud detection system running in production using **Machine Learning**, successfully 
  classifying millions of transactions a day
 * &bull; Setup **Customer Journey Monitoring** at Rabobank 
@@ -34,9 +34,9 @@ MapReduce (Hive, Pig and streaming) &bull; Tableau &bull; Java &bull; R &bull; L
 ## Professional Experience
 ### BNP Paribas Amsterdam 
 `2020 - Now` **Datascientist** Continuing the global rollout of the highly visible big data platform FBA. 
-&bull;  Manage a globally consistent codebase across three regions (Americas, EMEA and APAC)
-&bull; Greatly reduce the False Positive alerting rate using statistical and machine learning techniques
-&bull;  Contribute to the platform strategy and lead its expansion to various business areas
+ Manage a codebase across three regions (Americas, EMEA and APAC).
+ Greatly reduce the False Positive alerting rate using statistical and machine learning techniques.
+ Contribute to the platform strategy and lead its expansion to various business areas.
 
 ### BNP Paribas New York
 
