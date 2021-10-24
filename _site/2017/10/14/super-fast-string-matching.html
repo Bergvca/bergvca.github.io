@@ -11,10 +11,10 @@
 
   
   
-  <link rel="stylesheet" href="/assets/style.css">
+  <link rel="stylesheet" href="http://localhost:4000/assets/style.css">
 
-  <link rel="canonical" href="/2017/10/14/super-fast-string-matching.html">
-  <link rel="alternate" type="application/rss+xml" title="van den Blog" href="/feed.xml">
+  <link rel="canonical" href="http://localhost:4000/2017/10/14/super-fast-string-matching.html">
+  <link rel="alternate" type="application/rss+xml" title="van den Blog" href="http://localhost:4000/feed.xml">
 
   <script async defer src="https://buttons.github.io/buttons.js"></script>
 
@@ -53,13 +53,15 @@
         
       
         
-      
-        
         <li class="inline-block">
-          <a class="align-middle link-primary mr-2 mr-lg-0 ml-lg-2" href="/resume.html">
-            Resume
+          <a class="align-middle link-primary mr-2 mr-lg-0 ml-lg-2" href="/notebooks/nyccitibikeclean.html">
+            1 Day of New York Citi Bikes
           </a>
         </li>
+        
+      
+        
+      
         
       
         
@@ -73,12 +75,17 @@
       <article class="container px-2 mx-auto mb4" itemscope itemtype="http://schema.org/BlogPosting">
   <h1 class="h0 col-9 sm-width-full py-4 mt-3 inline-block" itemprop="name headline">Super Fast String Matching in Python</h1>
   <div class="col-4 sm-width-full mt-1 border-top-thin ">
-    <p class="mb-3 py-2 bold h4"><time datetime="2017-10-14T00:00:00-04:00" itemprop="datePublished">Oct 14, 2017</time></p>
+    <p class="mb-3 py-2 bold h4"><time datetime="2017-10-14T00:00:00+02:00" itemprop="datePublished">Oct 14, 2017</time></p>
   </div>
 
   <div class="prose" itemprop="articleBody">
       <p>Traditional approaches to string matching such as the <a href="https://en.wikipedia.org/wiki/Jaro%E2%80%93Winkler_distance">Jaro-Winkler</a> or <a href="https://en.wikipedia.org/wiki/Levenshtein_distance">Levenshtein</a> distance measure are too slow for large datasets. Using TF-IDF with N-Grams as terms
  to find similar strings transforms the problem into a matrix multiplication problem, which is computationally much cheaper. Using this approach made it possible to search for near duplicates in a set of 663,000 company names in 42 minutes using only a dual-core laptop.</p>
+
+<p><em>Update: run all code in the below post with one line using <a href="/2020/01/02/string-grouper.html">string_grouper</a></em>:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">match_strings</span><span class="p">(</span><span class="n">companies</span><span class="p">[</span><span class="s">'Company Name'</span><span class="p">])</span>
+</code></pre></div></div>
 
 <h2 id="name-matching">Name Matching</h2>
 
@@ -132,13 +139,13 @@ names in the SEC EDGAR database. I don’t know anything about the data or the a
 
 <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="n">pd</span>
 
-<span class="n">pd</span><span class="o">.</span><span class="n">set_option</span><span class="p">(</span><span class="s">'display.max_colwidth'</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span>
-<span class="n">names</span> <span class="o">=</span>  <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s">'data/sec_edgar_company_info.csv'</span><span class="p">)</span>
-<span class="k">print</span><span class="p">(</span><span class="s">'The shape: </span><span class="si">%</span><span class="s">d x </span><span class="si">%</span><span class="s">d'</span> <span class="o">%</span> <span class="n">names</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
-<span class="n">names</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+<span class="n">pd</span><span class="p">.</span><span class="n">set_option</span><span class="p">(</span><span class="s">'display.max_colwidth'</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">names</span> <span class="o">=</span>  <span class="n">pd</span><span class="p">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s">'data/sec_edgar_company_info.csv'</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="s">'The shape: %d x %d'</span> <span class="o">%</span> <span class="n">names</span><span class="p">.</span><span class="n">shape</span><span class="p">)</span>
+<span class="n">names</span><span class="p">.</span><span class="n">head</span><span class="p">()</span>
 </code></pre></div></div>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>The shape: 663000 x 3
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>The shape: 663000 x 3
 </code></pre></div></div>
 
 <div>
@@ -206,7 +213,7 @@ document (the <em>Term Frequency</em>, or <em>TF</em>) by the importance (the <e
 term in an entire corpus. This last term weights less important words (e.g. the, it, and etc) down, and words that 
 don’t occur frequently up. IDF is calculated as:</p>
 
-<p><code class="highlighter-rouge">IDF(t) = log_e(Total number of documents / Number of documents with term t in it).</code></p>
+<p><code class="language-plaintext highlighter-rouge">IDF(t) = log_e(Total number of documents / Number of documents with term t in it).</code></p>
 
 <p>An example (from <a href="http://www.tfidf.com/">www.tfidf.com/</a>):</p>
 
@@ -222,15 +229,15 @@ vectors, that can easily be compared.</p>
 <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">import</span> <span class="nn">re</span>
 
 <span class="k">def</span> <span class="nf">ngrams</span><span class="p">(</span><span class="n">string</span><span class="p">,</span> <span class="n">n</span><span class="o">=</span><span class="mi">3</span><span class="p">):</span>
-    <span class="n">string</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="s">r'[,-./]|\sBD'</span><span class="p">,</span><span class="s">r''</span><span class="p">,</span> <span class="n">string</span><span class="p">)</span>
+    <span class="n">string</span> <span class="o">=</span> <span class="n">re</span><span class="p">.</span><span class="n">sub</span><span class="p">(</span><span class="s">r'[,-./]|\sBD'</span><span class="p">,</span><span class="s">r''</span><span class="p">,</span> <span class="n">string</span><span class="p">)</span>
     <span class="n">ngrams</span> <span class="o">=</span> <span class="nb">zip</span><span class="p">(</span><span class="o">*</span><span class="p">[</span><span class="n">string</span><span class="p">[</span><span class="n">i</span><span class="p">:]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="p">)])</span>
-    <span class="k">return</span> <span class="p">[</span><span class="s">''</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">ngram</span><span class="p">)</span> <span class="k">for</span> <span class="n">ngram</span> <span class="ow">in</span> <span class="n">ngrams</span><span class="p">]</span>
+    <span class="k">return</span> <span class="p">[</span><span class="s">''</span><span class="p">.</span><span class="n">join</span><span class="p">(</span><span class="n">ngram</span><span class="p">)</span> <span class="k">for</span> <span class="n">ngram</span> <span class="ow">in</span> <span class="n">ngrams</span><span class="p">]</span>
 
 <span class="k">print</span><span class="p">(</span><span class="s">'All 3-grams in "McDonalds":'</span><span class="p">)</span>
 <span class="n">ngrams</span><span class="p">(</span><span class="s">'McDonalds'</span><span class="p">)</span>
 </code></pre></div></div>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>All 3-grams in "McDonalds":
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>All 3-grams in "McDonalds":
 
 ['McD', 'cDo', 'Don', 'ona', 'nal', 'ald', 'lds']
 </code></pre></div></div>
@@ -243,7 +250,7 @@ vectors, that can easily be compared.</p>
 
 <span class="n">company_names</span> <span class="o">=</span> <span class="n">names</span><span class="p">[</span><span class="s">'Company Name'</span><span class="p">]</span>
 <span class="n">vectorizer</span> <span class="o">=</span> <span class="n">TfidfVectorizer</span><span class="p">(</span><span class="n">min_df</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">analyzer</span><span class="o">=</span><span class="n">ngrams</span><span class="p">)</span>
-<span class="n">tf_idf_matrix</span> <span class="o">=</span> <span class="n">vectorizer</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">company_names</span><span class="p">)</span>
+<span class="n">tf_idf_matrix</span> <span class="o">=</span> <span class="n">vectorizer</span><span class="p">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">company_names</span><span class="p">)</span>
 </code></pre></div></div>
 
 <p>The resulting matrix is very sparse as most terms in the corpus will not appear in most company names. Scikit-learn deals with this nicely by returning a sparse <a href="https://docs.scipy.org/doc/scipy-0.14.0/reference/generated/scipy.sparse.csr_matrix.html">CSR  matrix</a>.</p>
@@ -252,12 +259,12 @@ vectors, that can easily be compared.</p>
 
 <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">print</span><span class="p">(</span><span class="n">tf_idf_matrix</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
 
-<span class="c"># Check if this makes sense:</span>
-
+<span class="c1"># Check if this makes sense:
+</span>
 <span class="n">ngrams</span><span class="p">(</span><span class="s">'!J INC'</span><span class="p">)</span>
 </code></pre></div></div>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  (0, 11)	0.844099068282
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  (0, 11)	0.844099068282
   (0, 16196)	0.51177784466
   (0, 15541)	0.159938115034
 
@@ -288,28 +295,28 @@ at ING found out this has <a href="https://medium.com/@ingwbaa/https-medium-com-
 <span class="kn">import</span> <span class="nn">sparse_dot_topn.sparse_dot_topn</span> <span class="k">as</span> <span class="n">ct</span>
 
 <span class="k">def</span> <span class="nf">awesome_cossim_top</span><span class="p">(</span><span class="n">A</span><span class="p">,</span> <span class="n">B</span><span class="p">,</span> <span class="n">ntop</span><span class="p">,</span> <span class="n">lower_bound</span><span class="o">=</span><span class="mi">0</span><span class="p">):</span>
-    <span class="c"># force A and B as a CSR matrix.</span>
-    <span class="c"># If they have already been CSR, there is no overhead</span>
-    <span class="n">A</span> <span class="o">=</span> <span class="n">A</span><span class="o">.</span><span class="n">tocsr</span><span class="p">()</span>
-    <span class="n">B</span> <span class="o">=</span> <span class="n">B</span><span class="o">.</span><span class="n">tocsr</span><span class="p">()</span>
-    <span class="n">M</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">A</span><span class="o">.</span><span class="n">shape</span>
-    <span class="n">_</span><span class="p">,</span> <span class="n">N</span> <span class="o">=</span> <span class="n">B</span><span class="o">.</span><span class="n">shape</span>
+    <span class="c1"># force A and B as a CSR matrix.
+</span>    <span class="c1"># If they have already been CSR, there is no overhead
+</span>    <span class="n">A</span> <span class="o">=</span> <span class="n">A</span><span class="p">.</span><span class="n">tocsr</span><span class="p">()</span>
+    <span class="n">B</span> <span class="o">=</span> <span class="n">B</span><span class="p">.</span><span class="n">tocsr</span><span class="p">()</span>
+    <span class="n">M</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">A</span><span class="p">.</span><span class="n">shape</span>
+    <span class="n">_</span><span class="p">,</span> <span class="n">N</span> <span class="o">=</span> <span class="n">B</span><span class="p">.</span><span class="n">shape</span>
  
-    <span class="n">idx_dtype</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">int32</span>
+    <span class="n">idx_dtype</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="n">int32</span>
  
     <span class="n">nnz_max</span> <span class="o">=</span> <span class="n">M</span><span class="o">*</span><span class="n">ntop</span>
  
-    <span class="n">indptr</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">M</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">idx_dtype</span><span class="p">)</span>
-    <span class="n">indices</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">nnz_max</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">idx_dtype</span><span class="p">)</span>
-    <span class="n">data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">nnz_max</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">A</span><span class="o">.</span><span class="n">dtype</span><span class="p">)</span>
+    <span class="n">indptr</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">M</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">idx_dtype</span><span class="p">)</span>
+    <span class="n">indices</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">nnz_max</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">idx_dtype</span><span class="p">)</span>
+    <span class="n">data</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">nnz_max</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">A</span><span class="p">.</span><span class="n">dtype</span><span class="p">)</span>
 
-    <span class="n">ct</span><span class="o">.</span><span class="n">sparse_dot_topn</span><span class="p">(</span>
-        <span class="n">M</span><span class="p">,</span> <span class="n">N</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">A</span><span class="o">.</span><span class="n">indptr</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">idx_dtype</span><span class="p">),</span>
-        <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">A</span><span class="o">.</span><span class="n">indices</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">idx_dtype</span><span class="p">),</span>
-        <span class="n">A</span><span class="o">.</span><span class="n">data</span><span class="p">,</span>
-        <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">B</span><span class="o">.</span><span class="n">indptr</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">idx_dtype</span><span class="p">),</span>
-        <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">B</span><span class="o">.</span><span class="n">indices</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">idx_dtype</span><span class="p">),</span>
-        <span class="n">B</span><span class="o">.</span><span class="n">data</span><span class="p">,</span>
+    <span class="n">ct</span><span class="p">.</span><span class="n">sparse_dot_topn</span><span class="p">(</span>
+        <span class="n">M</span><span class="p">,</span> <span class="n">N</span><span class="p">,</span> <span class="n">np</span><span class="p">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">A</span><span class="p">.</span><span class="n">indptr</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">idx_dtype</span><span class="p">),</span>
+        <span class="n">np</span><span class="p">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">A</span><span class="p">.</span><span class="n">indices</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">idx_dtype</span><span class="p">),</span>
+        <span class="n">A</span><span class="p">.</span><span class="n">data</span><span class="p">,</span>
+        <span class="n">np</span><span class="p">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">B</span><span class="p">.</span><span class="n">indptr</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">idx_dtype</span><span class="p">),</span>
+        <span class="n">np</span><span class="p">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">B</span><span class="p">.</span><span class="n">indices</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">idx_dtype</span><span class="p">),</span>
+        <span class="n">B</span><span class="p">.</span><span class="n">data</span><span class="p">,</span>
         <span class="n">ntop</span><span class="p">,</span>
         <span class="n">lower_bound</span><span class="p">,</span>
         <span class="n">indptr</span><span class="p">,</span> <span class="n">indices</span><span class="p">,</span> <span class="n">data</span><span class="p">)</span>
@@ -320,19 +327,19 @@ at ING found out this has <a href="https://medium.com/@ingwbaa/https-medium-com-
 <p>The following code runs the optimized cosine similarity function. It only stores the top 10 most similar items, and only items with a similarity above 0.8:</p>
 
 <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">import</span> <span class="nn">time</span>
-<span class="n">t1</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
-<span class="n">matches</span> <span class="o">=</span> <span class="n">awesome_cossim_top</span><span class="p">(</span><span class="n">tf_idf_matrix</span><span class="p">,</span> <span class="n">tf_idf_matrix</span><span class="o">.</span><span class="n">transpose</span><span class="p">(),</span> <span class="mi">10</span><span class="p">,</span> <span class="mf">0.8</span><span class="p">)</span>
-<span class="n">t</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span><span class="o">-</span><span class="n">t1</span>
+<span class="n">t1</span> <span class="o">=</span> <span class="n">time</span><span class="p">.</span><span class="n">time</span><span class="p">()</span>
+<span class="n">matches</span> <span class="o">=</span> <span class="n">awesome_cossim_top</span><span class="p">(</span><span class="n">tf_idf_matrix</span><span class="p">,</span> <span class="n">tf_idf_matrix</span><span class="p">.</span><span class="n">transpose</span><span class="p">(),</span> <span class="mi">10</span><span class="p">,</span> <span class="mf">0.8</span><span class="p">)</span>
+<span class="n">t</span> <span class="o">=</span> <span class="n">time</span><span class="p">.</span><span class="n">time</span><span class="p">()</span><span class="o">-</span><span class="n">t1</span>
 <span class="k">print</span><span class="p">(</span><span class="s">"SELFTIMED:"</span><span class="p">,</span> <span class="n">t</span><span class="p">)</span>
 </code></pre></div></div>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>SELFTIMED: 2718.7523670196533
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>SELFTIMED: 2718.7523670196533
 </code></pre></div></div>
 
 <p>The following code unpacks the resulting sparse matrix. As it is a bit slow, an option to look at only the first <em>n</em> values is added.</p>
 
 <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="nf">get_matches_df</span><span class="p">(</span><span class="n">sparse_matrix</span><span class="p">,</span> <span class="n">name_vector</span><span class="p">,</span> <span class="n">top</span><span class="o">=</span><span class="mi">100</span><span class="p">):</span>
-    <span class="n">non_zeros</span> <span class="o">=</span> <span class="n">sparse_matrix</span><span class="o">.</span><span class="n">nonzero</span><span class="p">()</span>
+    <span class="n">non_zeros</span> <span class="o">=</span> <span class="n">sparse_matrix</span><span class="p">.</span><span class="n">nonzero</span><span class="p">()</span>
     
     <span class="n">sparserows</span> <span class="o">=</span> <span class="n">non_zeros</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
     <span class="n">sparsecols</span> <span class="o">=</span> <span class="n">non_zeros</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
@@ -340,18 +347,18 @@ at ING found out this has <a href="https://medium.com/@ingwbaa/https-medium-com-
     <span class="k">if</span> <span class="n">top</span><span class="p">:</span>
         <span class="n">nr_matches</span> <span class="o">=</span> <span class="n">top</span>
     <span class="k">else</span><span class="p">:</span>
-        <span class="n">nr_matches</span> <span class="o">=</span> <span class="n">sparsecols</span><span class="o">.</span><span class="n">size</span>
+        <span class="n">nr_matches</span> <span class="o">=</span> <span class="n">sparsecols</span><span class="p">.</span><span class="n">size</span>
     
-    <span class="n">left_side</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">empty</span><span class="p">([</span><span class="n">nr_matches</span><span class="p">],</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">object</span><span class="p">)</span>
-    <span class="n">right_side</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">empty</span><span class="p">([</span><span class="n">nr_matches</span><span class="p">],</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">object</span><span class="p">)</span>
-    <span class="n">similairity</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">nr_matches</span><span class="p">)</span>
+    <span class="n">left_side</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="n">empty</span><span class="p">([</span><span class="n">nr_matches</span><span class="p">],</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">object</span><span class="p">)</span>
+    <span class="n">right_side</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="n">empty</span><span class="p">([</span><span class="n">nr_matches</span><span class="p">],</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">object</span><span class="p">)</span>
+    <span class="n">similairity</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">nr_matches</span><span class="p">)</span>
     
     <span class="k">for</span> <span class="n">index</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">nr_matches</span><span class="p">):</span>
         <span class="n">left_side</span><span class="p">[</span><span class="n">index</span><span class="p">]</span> <span class="o">=</span> <span class="n">name_vector</span><span class="p">[</span><span class="n">sparserows</span><span class="p">[</span><span class="n">index</span><span class="p">]]</span>
         <span class="n">right_side</span><span class="p">[</span><span class="n">index</span><span class="p">]</span> <span class="o">=</span> <span class="n">name_vector</span><span class="p">[</span><span class="n">sparsecols</span><span class="p">[</span><span class="n">index</span><span class="p">]]</span>
-        <span class="n">similairity</span><span class="p">[</span><span class="n">index</span><span class="p">]</span> <span class="o">=</span> <span class="n">sparse_matrix</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="n">index</span><span class="p">]</span>
+        <span class="n">similairity</span><span class="p">[</span><span class="n">index</span><span class="p">]</span> <span class="o">=</span> <span class="n">sparse_matrix</span><span class="p">.</span><span class="n">data</span><span class="p">[</span><span class="n">index</span><span class="p">]</span>
     
-    <span class="k">return</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s">'left_side'</span><span class="p">:</span> <span class="n">left_side</span><span class="p">,</span>
+    <span class="k">return</span> <span class="n">pd</span><span class="p">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s">'left_side'</span><span class="p">:</span> <span class="n">left_side</span><span class="p">,</span>
                           <span class="s">'right_side'</span><span class="p">:</span> <span class="n">right_side</span><span class="p">,</span>
                            <span class="s">'similairity'</span><span class="p">:</span> <span class="n">similairity</span><span class="p">})</span>
         
@@ -360,8 +367,8 @@ at ING found out this has <a href="https://medium.com/@ingwbaa/https-medium-com-
 <p>Lets look at our matches:</p>
 
 <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">matches_df</span> <span class="o">=</span> <span class="n">get_matches_df</span><span class="p">(</span><span class="n">matches</span><span class="p">,</span> <span class="n">company_names</span><span class="p">,</span> <span class="n">top</span><span class="o">=</span><span class="mi">100000</span><span class="p">)</span>
-<span class="n">matches_df</span> <span class="o">=</span> <span class="n">matches_df</span><span class="p">[</span><span class="n">matches_df</span><span class="p">[</span><span class="s">'similairity'</span><span class="p">]</span> <span class="o">&lt;</span> <span class="mf">0.99999</span><span class="p">]</span> <span class="c"># Remove all exact matches</span>
-<span class="n">matches_df</span><span class="o">.</span><span class="n">sample</span><span class="p">(</span><span class="mi">20</span><span class="p">)</span>
+<span class="n">matches_df</span> <span class="o">=</span> <span class="n">matches_df</span><span class="p">[</span><span class="n">matches_df</span><span class="p">[</span><span class="s">'similairity'</span><span class="p">]</span> <span class="o">&lt;</span> <span class="mf">0.99999</span><span class="p">]</span> <span class="c1"># Remove all exact matches
+</span><span class="n">matches_df</span><span class="p">.</span><span class="n">sample</span><span class="p">(</span><span class="mi">20</span><span class="p">)</span>
 </code></pre></div></div>
 
 <div>
@@ -501,7 +508,7 @@ at ING found out this has <a href="https://medium.com/@ingwbaa/https-medium-com-
 
 <p>The matches look pretty similar! The cossine similarity gives a good indication of the similarity between the two company names. <em>ATHENE ASSET MANAGEMENT LLC</em> and <em>CRANE ASSET MANAGEMENT LLC</em> are probably not the same company, and the similarity measure of 0.81 reflects this. When we look at the company names with the highest similarity, we see that these are pretty long strings that differ by only 1 character:</p>
 
-<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">matches_df</span><span class="o">.</span><span class="n">sort_values</span><span class="p">([</span><span class="s">'similairity'</span><span class="p">],</span> <span class="n">ascending</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">matches_df</span><span class="p">.</span><span class="n">sort_values</span><span class="p">([</span><span class="s">'similairity'</span><span class="p">],</span> <span class="n">ascending</span><span class="o">=</span><span class="bp">False</span><span class="p">).</span><span class="n">head</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
 </code></pre></div></div>
 
 <div>
@@ -612,7 +619,7 @@ The biggest advantage however, is the speed. The method described above can be s
 
 
   <div class="col-4 sm-width-full left mr-lg-4 mt-3">
-    <a class="no-underline border-top-thin py-1 block" href="/2017/08/29/citi-bike-kde.html">
+    <a class="no-underline border-top-thin py-1 block" href="http://localhost:4000/2017/08/29/citi-bike-kde.html">
       <span class="h5 bold text-accent">Previous</span>
       <p class="bold h3 link-primary mb-1">1 Day of Citi Bike availability </p>
       <p>After moving to New York from the Netherlands I was relieved to find out that biking in Manhattan is actually...</p>
@@ -621,10 +628,10 @@ The biggest advantage however, is the speed. The method described above can be s
   
   
   <div class="col-4 sm-width-full left mt-3">
-    <a class="no-underline border-top-thin py-1 block" href="/2019/04/13/gmail-analysis.html">
+    <a class="no-underline border-top-thin py-1 block" href="http://localhost:4000/2019/04/13/gmail-analysis.html">
       <span class="h5 bold text-accent">Next</span>
       <p class="bold h3 link-primary mb-1">The rise of Newsletter Spam: A journey through my Gmail inbox</p>
-      <p>In the beginning there was spam. Cheap, unpersonalised, mass-send junk mail, easily defeated by simple [Bayesian Filters](https://en.wikipedia.org/wiki/Naive_Bayes_spam_filtering). Over the years...</p>
+      <p>In the beginning there was spam. Cheap, unpersonalised, mass-sent junk mail, easily defeated by simple [Bayesian Filters](https://en.wikipedia.org/wiki/Naive_Bayes_spam_filtering). Over the years...</p>
     </a>
   </div>
 

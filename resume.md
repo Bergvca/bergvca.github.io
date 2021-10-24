@@ -1,4 +1,4 @@
----
+7---
 layout: cv
 title: Resume
 ---
@@ -18,7 +18,7 @@ The Netherlands
 _**All round data scientist with 8+ years of experience in the data analytics and AI space**_
 
 ### Results
-* &bull; At BNP Paribas, set up and integrated the Front Office supervisory tool **ForcePoint FBA**
+* &bull; At BNP Paribas, set up and integrated the front-office surveillance tool **ForcePoint FBA**
 * &bull; At Rabobank, built a fraud detection system running in production using **Machine Learning**, successfully 
  classifying millions of transactions a day
 * &bull; Setup **Customer Journey Monitoring** at Rabobank 
@@ -26,14 +26,16 @@ _**All round data scientist with 8+ years of experience in the data analytics an
 
 ### Expertise
 _Machine Learning &bull; Test-Driven Development &bull; SCRUM &bull;
-Python (Pandas, Scikit Learn, etc) &bull; SQL (Oracle and Microsoft) &bull; Spark &bull; 
+Python (Pandas, Scikit Learn, etc) &bull; SQL (Oracle, Microsoft, Postgres) &bull; Spark &bull; 
 MapReduce (Hive, Pig and streaming) &bull; Tableau &bull; Java &bull; R &bull; Linux &bull; GIT
-&bull; Javascript &bull; Elasticsearch &bull; Google Cloud Platform &bull; Docker_
+&bull; Rust &bull; Elasticsearch &bull; Google Cloud Platform &bull;_
 
 ---
 ## Professional Experience
 ### BNP Paribas Amsterdam 
-`2020 - Now` **Datascientist** Continuing the global rollout of the highly visible big data platform FBA. 
+`2020 - Now`  **Senior Datascientist** 
+
+Continuing the global rollout of the highly visible big data platform FBA. 
  Manage a codebase across three regions (Americas, EMEA and APAC).
  Greatly reduce the False Positive alerting rate using statistical and machine learning techniques.
  Contribute to the platform strategy and lead its expansion to various business areas.
@@ -109,10 +111,9 @@ My final bachelor project involved comparing different spam detection methods in
 * English
 * German
 
-<div class="page-break"></div>
 
 ## Volunteer work
-* Treasurer of the alumni club of the student rowing club 'Okeanos', 2017 - present
+* Treasurer of the alumni club of the student rowing club 'Okeanos', 2017 - 2019
 
 ## Sports and leisures
 Rowing (crew in 2007 and 2008, winner of the national sprint championship, coach of lightweight 4 in 2009), 
