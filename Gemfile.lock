@@ -239,7 +239,7 @@ GEM
       forwardable-extended (~> 2.6)
     public_suffix (3.1.1)
     racc (1.6.0)
-    rake (10.5.0)
+    rake (12.3.3)
     rb-fsevent (0.11.0)
     rb-inotify (0.10.1)
       ffi (~> 1.0)
@@ -281,7 +281,7 @@ DEPENDENCIES
   github-pages (~> 207)
   jekyll (~> 3.2)
   jekyll-swiss!
-  rake (~> 10.0)
+  rake (~> 12.3)
 
 BUNDLED WITH
    2.1.4
