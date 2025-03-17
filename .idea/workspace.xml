@@ -1,29 +1,27 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
   <component name="ChangeListManager">
-    <list default="true" id="71834658-26ae-4c00-95e1-04b5b705a2b9" name="Default" comment="Added new gmail blogpost">
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+    <list default="true" id="71834658-26ae-4c00-95e1-04b5b705a2b9" name="Default" comment="">
+      <change afterPath="$PROJECT_DIR$/_posts/2025-03-10-even-faster-string-matching.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/media/img/regular matrix mult.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/media/img/regular partitioned.svg" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Gemfile.lock" beforeDir="false" afterPath="$PROJECT_DIR$/Gemfile.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/_posts/2017-08-29-citi-bike-kde.md" beforeDir="false" afterPath="$PROJECT_DIR$/_posts/2017-08-29-citi-bike-kde.md" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/_site/2017/02/01/ikbenwatlater.html" beforeDir="false" afterPath="$PROJECT_DIR$/_site/2017/02/01/ikbenwatlater.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/_site/2017/08/01/pyspark-dist-explore.html" beforeDir="false" afterPath="$PROJECT_DIR$/_site/2017/08/01/pyspark-dist-explore.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/_site/2017/08/29/citi-bike-kde.html" beforeDir="false" afterPath="$PROJECT_DIR$/_site/2017/08/29/citi-bike-kde.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/_site/2017/10/14/super-fast-string-matching.html" beforeDir="false" afterPath="$PROJECT_DIR$/_site/2017/10/14/super-fast-string-matching.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/_site/2019/04/13/files/test notebook_25_1.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/_site/2019/04/13/files/test notebook_37_0.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/_site/2019/04/13/files/test notebook_43_0.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/_site/2019/04/13/files/test notebook_47_0.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/_site/2019/04/13/files/test notebook_58_0.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/_site/2019/04/13/files/test notebook_59_0.png" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/_site/2019/04/13/gmail-analysis.html" beforeDir="false" afterPath="$PROJECT_DIR$/_site/2019/04/13/gmail-analysis.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/_site/about/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/_site/about/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/_site/assets/style.css" beforeDir="false" afterPath="$PROJECT_DIR$/_site/assets/style.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/_site/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/_site/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/_site/jekyll-swiss.gemspec" beforeDir="false" afterPath="$PROJECT_DIR$/_site/jekyll-swiss.gemspec" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/_site/notebooks/nyccitibikeclean.html" beforeDir="false" afterPath="$PROJECT_DIR$/_site/notebooks/nyccitibikeclean.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/_site/resume.html" beforeDir="false" afterPath="$PROJECT_DIR$/_site/resume.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/jekyll-swiss.gemspec" beforeDir="false" afterPath="$PROJECT_DIR$/jekyll-swiss.gemspec" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resume.md" beforeDir="false" afterPath="$PROJECT_DIR$/resume.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/_site/notebooks/nyccitibikeclean.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/_site/resume.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/notebooks/gmail_analysis.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/_notebooks/gmail_analysis.ipynb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/notebooks/nyccitibikeclean.md" beforeDir="false" afterPath="$PROJECT_DIR$/_notebooks/nyccitibikeclean.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resume.md" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -33,18 +31,42 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;lastFilter&quot;: {
+    &quot;state&quot;: &quot;OPEN&quot;,
+    &quot;assignee&quot;: &quot;Bergvca&quot;
+  }
+}</component>
+  <component name="GithubPullRequestsUISettings">{
+  &quot;selectedUrlAndAccountId&quot;: {
+    &quot;url&quot;: &quot;https://github.com/Bergvca/bergvca.github.io.git&quot;,
+    &quot;accountId&quot;: &quot;1b8c55f3-0f7f-4426-8757-c5316899ec3b&quot;
+  }
+}</component>
   <component name="MacroExpansionManager">
     <option name="directoryName" value="OmkAoTRD" />
   </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
+  </component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 0
+}</component>
   <component name="ProjectId" id="1VrDgmOTYQRbsiDqlZ6AP6qD00C" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">
-    <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
-  </component>
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
+    &quot;dart.analysis.tool.window.visible&quot;: &quot;false&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
+    &quot;last_opened_file_path&quot;: &quot;/home/chris/dev/bergvca.github.io/media/img&quot;
+  }
+}</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/media/img" />
@@ -56,6 +78,7 @@
     </configuration>
     <configuration default="true" type="tests" factoryName="Nosetests">
       <module name="bergvca.github.io" />
+      <option name="ENV_FILES" value="" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
       <option name="SDK_HOME" value="" />
@@ -69,6 +92,13 @@
       <option name="_new_targetType" value="&quot;PATH&quot;" />
       <method v="2" />
     </configuration>
+  </component>
+  <component name="SharedIndexes">
+    <attachedChunks>
+      <set>
+        <option value="bundled-python-sdk-1b1018131e27-aa17d162503b-com.jetbrains.pycharm.community.sharedIndexes.bundled-PC-243.22562.180" />
+      </set>
+    </attachedChunks>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="SvnConfiguration">
@@ -243,7 +273,14 @@
       <option name="project" value="LOCAL" />
       <updated>1601324309702</updated>
     </task>
-    <option name="localTasksCounter" value="24" />
+    <task id="LOCAL-00024" summary="Remove resume from frontpage">
+      <created>1635100304257</created>
+      <option name="number" value="00024" />
+      <option name="presentableId" value="LOCAL-00024" />
+      <option name="project" value="LOCAL" />
+      <updated>1635100304257</updated>
+    </task>
+    <option name="localTasksCounter" value="25" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
@@ -266,6 +303,7 @@
     <MESSAGE value="Erroneous link" />
     <MESSAGE value="Some typos" />
     <MESSAGE value="Updated resume" />
-    <option name="LAST_COMMIT_MESSAGE" value="Updated resume" />
+    <MESSAGE value="Remove resume from frontpage" />
+    <option name="LAST_COMMIT_MESSAGE" value="Remove resume from frontpage" />
   </component>
 </project>

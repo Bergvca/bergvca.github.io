@@ -66,7 +66,7 @@ Note that the data used in this animation was on a Friday, which means the rush 
 This visualisation was made in Python, using [Pandas](http://pandas.pydata.org/), [Matplotlib](http://matplotlib.org/)
 [Seaborn](https://seaborn.pydata.org/index.html), and [Basemap](https://matplotlib.org/basemap/).
 
-For the full Jupter Notebook with code click [here](/notebooks/nyccitibikeclean)
+For the full Jupter Notebook with code click [here](https://github.com/Bergvca/bergvca.github.io/tree/master/_notebooks/nyccitibikeclean.md)
 
 
 
