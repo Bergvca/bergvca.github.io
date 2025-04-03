@@ -4,12 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="71834658-26ae-4c00-95e1-04b5b705a2b9" name="Default" comment="">
-      <change afterPath="$PROJECT_DIR$/_posts/2025-03-10-even-faster-string-matching.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/media/img/regular matrix mult.svg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/media/img/regular partitioned.svg" afterDir="false" />
+    <list default="true" id="71834658-26ae-4c00-95e1-04b5b705a2b9" name="Default" comment="Added new post on string grouper">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/_posts/2017-08-29-citi-bike-kde.md" beforeDir="false" afterPath="$PROJECT_DIR$/_posts/2017-08-29-citi-bike-kde.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/_config.yml" beforeDir="false" afterPath="$PROJECT_DIR$/_config.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/_posts/2025-03-10-even-faster-string-matching.md" beforeDir="false" afterPath="$PROJECT_DIR$/_posts/2025-03-10-even-faster-string-matching.md" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/_site/2017/02/01/ikbenwatlater.html" beforeDir="false" afterPath="$PROJECT_DIR$/_site/2017/02/01/ikbenwatlater.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/_site/2017/08/01/pyspark-dist-explore.html" beforeDir="false" afterPath="$PROJECT_DIR$/_site/2017/08/01/pyspark-dist-explore.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/_site/2017/08/29/citi-bike-kde.html" beforeDir="false" afterPath="$PROJECT_DIR$/_site/2017/08/29/citi-bike-kde.html" afterDir="false" />
@@ -17,11 +15,7 @@
       <change beforePath="$PROJECT_DIR$/_site/2019/04/13/gmail-analysis.html" beforeDir="false" afterPath="$PROJECT_DIR$/_site/2019/04/13/gmail-analysis.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/_site/about/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/_site/about/index.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/_site/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/_site/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/_site/notebooks/nyccitibikeclean.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/_site/resume.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/notebooks/gmail_analysis.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/_notebooks/gmail_analysis.ipynb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/notebooks/nyccitibikeclean.md" beforeDir="false" afterPath="$PROJECT_DIR$/_notebooks/nyccitibikeclean.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resume.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/about.md" beforeDir="false" afterPath="$PROJECT_DIR$/about.md" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -57,16 +51,16 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
-    &quot;dart.analysis.tool.window.visible&quot;: &quot;false&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
-    &quot;last_opened_file_path&quot;: &quot;/home/chris/dev/bergvca.github.io/media/img&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "dart.analysis.tool.window.visible": "false",
+    "git-widget-placeholder": "master",
+    "last_opened_file_path": "/home/chris/dev/bergvca.github.io"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/media/img" />
@@ -280,7 +274,15 @@
       <option name="project" value="LOCAL" />
       <updated>1635100304257</updated>
     </task>
-    <option name="localTasksCounter" value="25" />
+    <task id="LOCAL-00025" summary="Added new post on string grouper">
+      <option name="closed" value="true" />
+      <created>1742240375738</created>
+      <option name="number" value="00025" />
+      <option name="presentableId" value="LOCAL-00025" />
+      <option name="project" value="LOCAL" />
+      <updated>1742240375738</updated>
+    </task>
+    <option name="localTasksCounter" value="26" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
@@ -304,6 +306,7 @@
     <MESSAGE value="Some typos" />
     <MESSAGE value="Updated resume" />
     <MESSAGE value="Remove resume from frontpage" />
-    <option name="LAST_COMMIT_MESSAGE" value="Remove resume from frontpage" />
+    <MESSAGE value="Added new post on string grouper" />
+    <option name="LAST_COMMIT_MESSAGE" value="Added new post on string grouper" />
   </component>
 </project>

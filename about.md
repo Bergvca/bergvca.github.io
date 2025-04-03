@@ -4,7 +4,7 @@ title: About
 permalink: /about/
 ---
 
-My name is Chris van den Berg. I'm a Data Scientist who loves to build stuff. This blog is created to share some of the ideas and side projects 
+My name is Chris van den Berg. I'm a Full Stack Data Developer who loves to build stuff. This blog is created to share some of the ideas and side projects 
 I've worked on. 
 
 

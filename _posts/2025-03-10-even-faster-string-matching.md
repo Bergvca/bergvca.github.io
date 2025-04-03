@@ -1,12 +1,12 @@
 ---
 layout: post
 title:  "Even Faster String matching in Python"
-date:   2025-01-02
+date:   2025-03-01
 ---
 
 ## TL;DR
 
-[String Grouper](https://github.com/Bergvca/string_grouper) is now _87% faster_ (than 5 years ago).
+[String Grouper](https://github.com/Bergvca/string_grouper) is now _8 times faster_ (than 5 years ago).
 
 ## String Grouper
 
@@ -21,23 +21,23 @@ the python repository. [String Grouper](https://github.com/Bergvca/string_groupe
 To my surprise, the module gained traction and active contributors. Or, maybe not so surprising, since [Record Linkage](https://en.wikipedia.org/wiki/Record_linkage), 
 is a frequently and extensively employed process. Any piece of code that can make this task easier and faster
 could be useful to many industries. After a while, the module ran into some issues with the v3 version of `Cython`, became hard
-to install, and as such was pretty much _dead_. TThe strength of open source shone through when recently a new contributor
+to install, and as such was pretty much _dead_. The strength of open source shone through when recently a new contributor
 came along and updated code to be compliant with Cython v3 again. 
 
-## 87% faster
+## 87% time reduction
 
 Since this new version is now _"presentable"_ again (it works by simply `pip install`-ing it), it seems like a good time to
 write another blog post on it. The latest version has new functionalities that can be found in the
-new [documentation](https://bergvca.github.io/string_grouper/). The most striking improvement, however, is the same
+new [documentation](https://bergvca.github.io/string_grouper/). The most striking improvement, however, is that the same
 string matching exercise described in [Super Fast String Matching](2017/10/14/super-fast-string-matching.md), on the 
-exact same hardware (_yes my laptop is old!_) now runs in **5:34** minutes, or an _87%_ increase in speed. 
+exact same hardware (_yes my laptop is old!_) now runs in **5:34** minutes, or an _87%_ time reduction. 
 
 ## Coincidence
 
 The main reason for this huge improvement was discovered as a bit of a coincidence: a user was noticing `OverflowError`'s 
 due to large arrays getting created. Even though the algorithm works on sparse matrices, there is
 still an array created with the number of rows in the matrix you are trying to compare with 
-(equal to the length of the pandas Series/Dataframe). These can be huge and cause OverFlow errors. Therefore, an option
+(equal to the length of the pandas Series/Dataframe). This can be huge and cause OverFlow errors. Therefore, an option
 was added to split the matrices in several smaller matrices, which do not need to instantiate arrays of the same length 
 as when using the original matrices. It turned out that this could drastically improve the performance. See also the [Performance](https://bergvca.github.io/string_grouper/performance/)
 section of the documentation.
@@ -68,4 +68,4 @@ of floating point numbers for our dataset in each B matrix (_or: number of non-z
 The number of floating point numbers in the A matrix is 11.7 million, or 89 MB, which does not fit in my CPU cache at all (the L3 cache is 4MB). 
 
 
-Now, I'm by no means an expert on CPU's and their cache but to me, it sounds like a plausible explanation for this major speed improvement.  
+The good news is that String Grouper is up to date again and significantly faster than before!
