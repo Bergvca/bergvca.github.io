@@ -5,9 +5,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="71834658-26ae-4c00-95e1-04b5b705a2b9" name="Default" comment="Added new post on string grouper">
+      <change afterPath="$PROJECT_DIR$/.idea/.gitignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/dictionaries/project.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/encodings.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/_config.yml" beforeDir="false" afterPath="$PROJECT_DIR$/_config.yml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/_posts/2025-03-10-even-faster-string-matching.md" beforeDir="false" afterPath="$PROJECT_DIR$/_posts/2025-03-10-even-faster-string-matching.md" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/_site/2017/02/01/ikbenwatlater.html" beforeDir="false" afterPath="$PROJECT_DIR$/_site/2017/02/01/ikbenwatlater.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/_site/2017/08/01/pyspark-dist-explore.html" beforeDir="false" afterPath="$PROJECT_DIR$/_site/2017/08/01/pyspark-dist-explore.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/_site/2017/08/29/citi-bike-kde.html" beforeDir="false" afterPath="$PROJECT_DIR$/_site/2017/08/29/citi-bike-kde.html" afterDir="false" />
@@ -56,13 +57,16 @@
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "RunOnceActivity.git.unshallow": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
     "dart.analysis.tool.window.visible": "false",
     "git-widget-placeholder": "master",
-    "last_opened_file_path": "/home/chris/dev/bergvca.github.io"
+    "last_opened_file_path": "/home/chris/dev/bergvca.github.io",
+    "settings.editor.selected.configurable": "reference.settingsdialog.project.grazie"
   }
 }]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$" />
       <recent name="$PROJECT_DIR$/media/img" />
     </key>
   </component>
@@ -90,7 +94,7 @@
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
-        <option value="bundled-python-sdk-1b1018131e27-aa17d162503b-com.jetbrains.pycharm.community.sharedIndexes.bundled-PC-243.22562.180" />
+        <option value="bundled-python-sdk-dfff61a61320-9cdd278e9d02-com.jetbrains.pycharm.community.sharedIndexes.bundled-PC-251.25410.159" />
       </set>
     </attachedChunks>
   </component>
@@ -282,7 +286,15 @@
       <option name="project" value="LOCAL" />
       <updated>1742240375738</updated>
     </task>
-    <option name="localTasksCounter" value="26" />
+    <task id="LOCAL-00026" summary="Added new post on string grouper">
+      <option name="closed" value="true" />
+      <created>1743702804363</created>
+      <option name="number" value="00026" />
+      <option name="presentableId" value="LOCAL-00026" />
+      <option name="project" value="LOCAL" />
+      <updated>1743702804363</updated>
+    </task>
+    <option name="localTasksCounter" value="27" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
