@@ -5,7 +5,7 @@ permalink: /about/
 ---
 
 My name is Chris van den Berg. I'm a Full Stack Data Developer who loves to build stuff. I have 13 years of
-industrie experience as Tech lead, Data Scientist, Data engineer and Developer.
+ industry experience as a Tech lead, Data Scientist, Data engineer and Developer.
 
 <img src="/media/img/linkedinlog.png" alt="linkedimg">&nbsp;<a href="https://www.linkedin.com/in/chris-van-den-berg/">linkedin</a> &emsp; <img src="/media/img/github-logo.png" alt="gitimg">&nbsp;<a href="https://github.com/Bergvca">git</a> / <a href="https://gist.github.com/Bergvca">gist</a>
 
